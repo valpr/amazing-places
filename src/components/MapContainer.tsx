@@ -1,4 +1,4 @@
-import { Map, GoogleApiWrapper } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 const mapStyle = {
     width: '100%',
@@ -17,18 +17,21 @@ const MapContainer:React.FC<props> = ({google, loaded}) => {
             loading
         </div>
     }
-    console.log(process.env.REACT_APP_API_KEY);
     return <div>
         <Map google={google}
+        zoom={10}
         style={mapStyle}
         initialCenter={
             {
                 lat: -1.2884,
-                lng: 36.8233
+                lng: 22
             }
         }>
+            <Marker
+                //onClick={directions}
+
+            />
         </Map>
-        Hi, this is map container.
     </div>
 }
 
