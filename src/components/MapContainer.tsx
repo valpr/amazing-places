@@ -1,4 +1,5 @@
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker, IMapProps } from 'google-maps-react';
+import { useState } from 'react';
 
 const mapStyle = {
     width: '100%',
@@ -10,27 +11,43 @@ interface props {
     loaded: any;
 }
 
+interface MarkerObject {
+    lat: number;
+    lng: number;
+}
+
 const MapContainer:React.FC<props> = ({google, loaded}) => {
-    
+    const [markerList, setMarkerList] = useState<MarkerObject[]>([]);
+
     if (!loaded) {
         return <div>
             loading
         </div>
     }
+
+    const handleClick = (_google: any, _map: any, {latLng}: {latLng: {lat: Function, lng: Function}}) => {
+        const newMarker = {
+            lat: latLng.lat(),
+            lng: latLng.lng()
+        };
+        setMarkerList([...markerList, newMarker]);
+
+    }
+
     return <div>
         <Map google={google}
         zoom={10}
         style={mapStyle}
+        onClick={
+            handleClick
+        }
         initialCenter={
             {
                 lat: -1.2884,
                 lng: 22
             }
         }>
-            <Marker
-                //onClick={directions}
-
-            />
+            {markerList.map(marker => <Marker key={marker.lat} position={{lat: marker.lat, lng: marker.lng}}></Marker>)}
         </Map>
     </div>
 }
