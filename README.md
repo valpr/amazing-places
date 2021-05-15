@@ -8,6 +8,7 @@ and hopefully take the step towards visiting the places you want to.
 - [x] Figure out the basics of google-maps-react
 - [x] Fix Typing confusion
 - [x] Click event to place markers
+- [x] actual tsconfig and lint rules
 - [ ] Set up a proper redux state for markers/diagram it out
 - [ ] Add a route rendering component between all markers https://stackoverflow.com/questions/55424790/how-i-draw-a-route-with-react-google-maps-component
 - [ ] Able to add a description to markers (input form on the side?)
