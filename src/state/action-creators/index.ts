@@ -3,7 +3,7 @@ import { Action, Marker } from '../actions';
 import { Dispatch } from 'redux';
 
 export const createMarker = (marker: Marker) => {
-    return (dispatch: Dispatch<Action>): void => {
+    return async (dispatch: Dispatch<Action>): Promise<void> => {
         //will be async later
         dispatch({
             type: ActionType.CREATE_MARKER,

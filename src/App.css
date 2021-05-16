@@ -1,0 +1,17 @@
+/* .App div {
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(384px, 1fr));
+}
+
+.Map div {
+    grid-column-end: span 2;
+    grid-row-end: span 2;
+    border: 1px solid #e0e0e0;
+}
+
+.SideMenu div {
+    grid-column-end: span 2;
+    grid-row-end: span 2;
+} */
+

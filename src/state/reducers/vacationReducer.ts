@@ -8,7 +8,15 @@ interface VacationState {
 }
 
 const initialState = {
-    route: [],
+    route: [
+        {
+            id: 0,
+            lat: -1.2884,
+            lng: 22,
+            description: 'wow!',
+            title: 'test',
+        },
+    ],
     date: undefined,
     name: '',
 };
@@ -19,7 +27,7 @@ const reducer = (
 ): VacationState => {
     switch (action.type) {
         case ActionType.CREATE_MARKER:
-            return { ...state, route: state.route };
+            return { ...state, route: [...state.route, action.payload] };
         case ActionType.DELETE_MARKER:
         case ActionType.EDIT_MARKER:
         default:

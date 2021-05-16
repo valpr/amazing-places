@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import {
     Map,
     GoogleApiWrapper,
@@ -6,11 +7,8 @@ import {
     mapEventHandler,
 } from 'google-maps-react';
 import React, { useState } from 'react';
-
-const mapStyle = {
-    width: '100%',
-    height: '100%',
-};
+import { css } from '@emotion/react';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 
 interface props {
     google: GoogleAPI;
@@ -23,7 +21,9 @@ interface MarkerObject {
 }
 
 const MapContainer: React.FC<props> = ({ google, loaded }: props) => {
-    const [markerList, setMarkerList] = useState<MarkerObject[]>([]);
+    const [currentMarker, setCurrentMarker] =
+        useState<MarkerObject | undefined>();
+    const { route } = useTypedSelector((state) => state.vacations);
 
     if (!loaded) {
         return <div>loading</div>;
@@ -32,33 +32,45 @@ const MapContainer: React.FC<props> = ({ google, loaded }: props) => {
     const handleClick: mapEventHandler = (
         _mapProps,
         _map,
-        event: { lat: () => number; lng: () => number },
+        event: { latLng: { lat: () => number; lng: () => number } },
     ) => {
         const newMarker = {
-            lat: event.lat(),
-            lng: event.lng(),
+            lat: event.latLng.lat(),
+            lng: event.latLng.lng(),
         };
-        setMarkerList([...markerList, newMarker]);
+        setCurrentMarker(newMarker);
+    };
+
+    const onMarkerClick = () => {
+        setCurrentMarker(undefined);
     };
 
     return (
-        <div>
+        <div
+            css={css`
+                margin-top: 200px;
+            `}
+            className="Map">
             <Map
                 google={google}
                 zoom={10}
-                style={mapStyle}
                 onClick={handleClick}
                 initialCenter={{
                     lat: -1.2884,
                     lng: 22,
-                }}>
-                {markerList.map((marker) => (
+                }}
+                disableDefaultUI>
+                {currentMarker ? (
+                    <Marker onClick={onMarkerClick} position={currentMarker} />
+                ) : null}
+                {route.map((marker) => (
                     <Marker
-                        key={marker.lat}
+                        key={marker.id}
                         position={{
                             lat: marker.lat,
                             lng: marker.lng,
-                        }}></Marker>
+                        }}
+                        title={marker.title}></Marker>
                 ))}
             </Map>
         </div>

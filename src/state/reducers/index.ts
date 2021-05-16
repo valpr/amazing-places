@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import vacationReducer from './vacationReducer';
 const reducers = combineReducers({
-    repositories: vacationReducer,
+    vacations: vacationReducer,
 });
 
 export default reducers;
