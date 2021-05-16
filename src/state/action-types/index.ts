@@ -1,0 +1,5 @@
+export enum ActionType {
+    CREATE_MARKER = 'CREATE_MARKER',
+    DELETE_MARKER = 'DELETE_MARKER',
+    EDIT_MARKER = 'EDIT_MARKER',
+}

@@ -1,67 +1,70 @@
 import {
-  Map,
-  GoogleApiWrapper,
-  Marker,
-  GoogleAPI,
-  mapEventHandler,
+    Map,
+    GoogleApiWrapper,
+    Marker,
+    GoogleAPI,
+    mapEventHandler,
 } from 'google-maps-react';
 import React, { useState } from 'react';
 
 const mapStyle = {
-  width: '100%',
-  height: '100%',
+    width: '100%',
+    height: '100%',
 };
 
 interface props {
-  google: GoogleAPI;
-  loaded: boolean;
+    google: GoogleAPI;
+    loaded: boolean;
 }
 
 interface MarkerObject {
-  lat: number;
-  lng: number;
+    lat: number;
+    lng: number;
 }
 
 const MapContainer: React.FC<props> = ({ google, loaded }: props) => {
-  const [markerList, setMarkerList] = useState<MarkerObject[]>([]);
+    const [markerList, setMarkerList] = useState<MarkerObject[]>([]);
 
-  if (!loaded) {
-    return <div>loading</div>;
-  }
+    if (!loaded) {
+        return <div>loading</div>;
+    }
 
-  const handleClick: mapEventHandler = (
-    _mapProps,
-    _map,
-    event: { lat: () => number; lng: () => number },
-  ) => {
-    const newMarker = {
-      lat: event.lat(),
-      lng: event.lng(),
+    const handleClick: mapEventHandler = (
+        _mapProps,
+        _map,
+        event: { lat: () => number; lng: () => number },
+    ) => {
+        const newMarker = {
+            lat: event.lat(),
+            lng: event.lng(),
+        };
+        setMarkerList([...markerList, newMarker]);
     };
-    setMarkerList([...markerList, newMarker]);
-  };
 
-  return (
-    <div>
-      <Map
-        google={google}
-        zoom={10}
-        style={mapStyle}
-        onClick={handleClick}
-        initialCenter={{
-          lat: -1.2884,
-          lng: 22,
-        }}>
-        {markerList.map((marker) => (
-          <Marker
-            key={marker.lat}
-            position={{ lat: marker.lat, lng: marker.lng }}></Marker>
-        ))}
-      </Map>
-    </div>
-  );
+    return (
+        <div>
+            <Map
+                google={google}
+                zoom={10}
+                style={mapStyle}
+                onClick={handleClick}
+                initialCenter={{
+                    lat: -1.2884,
+                    lng: 22,
+                }}>
+                {markerList.map((marker) => (
+                    <Marker
+                        key={marker.lat}
+                        position={{
+                            lat: marker.lat,
+                            lng: marker.lng,
+                        }}></Marker>
+                ))}
+            </Map>
+        </div>
+    );
 };
 
 export default GoogleApiWrapper({
-  apiKey: `${process.env['REACT_APP_API_KEY']}` ?? '',
+    apiKey: `${process.env['REACT_APP_API_KEY']}` ?? '',
 })(MapContainer);
