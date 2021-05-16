@@ -9,7 +9,9 @@ and hopefully take the step towards visiting the places you want to.
 - [x] Fix Typing confusion
 - [x] Click event to place markers
 - [x] actual tsconfig and lint rules
-- [ ] Set up a proper redux state for markers/diagram it out
+- [x] Set up a proper redux state for markers/diagram it out
+- [ ] Hook up inputs to create marker action
+- [ ] Clean up UI of side menu- proper grid layout?
 - [ ] Add a route rendering component between all markers https://stackoverflow.com/questions/55424790/how-i-draw-a-route-with-react-google-maps-component
 - [ ] Able to add a description to markers (input form on the side?)
 - [ ] Create a 'details menu' on the side
@@ -20,6 +22,7 @@ and hopefully take the step towards visiting the places you want to.
 - Account system (log in with social media)
 - Choose a picture to represent place
 - Itinerary
+- Draggable divider between map & side menu
 - Optional destinations/'free-time'
 - Collaboration:
 	- Real-time updates
