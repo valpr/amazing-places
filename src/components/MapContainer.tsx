@@ -6,24 +6,21 @@ import {
     GoogleAPI,
     mapEventHandler,
 } from 'google-maps-react';
-import React, { useState } from 'react';
+import React from 'react';
 import { css } from '@emotion/react';
 import { useTypedSelector } from '../hooks/useTypedSelector';
+import { useActions } from '../hooks/useActions';
 
-interface props {
+interface propShape {
     google: GoogleAPI;
     loaded: boolean;
 }
 
-interface MarkerObject {
-    lat: number;
-    lng: number;
-}
-
-const MapContainer: React.FC<props> = ({ google, loaded }: props) => {
-    const [currentMarker, setCurrentMarker] =
-        useState<MarkerObject | undefined>();
-    const { route } = useTypedSelector((state) => state.vacations);
+const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
+    const { setCurrentMarker } = useActions();
+    const { route, currentMarker } = useTypedSelector(
+        (state) => state.vacations,
+    );
 
     if (!loaded) {
         return <div>loading</div>;
@@ -60,15 +57,23 @@ const MapContainer: React.FC<props> = ({ google, loaded }: props) => {
                     lng: 22,
                 }}
                 disableDefaultUI>
-                {currentMarker ? (
-                    <Marker onClick={onMarkerClick} position={currentMarker} />
+                {currentMarker &&
+                typeof currentMarker.lat !== 'undefined' &&
+                typeof currentMarker.lng !== 'undefined' ? (
+                    <Marker
+                        onClick={onMarkerClick}
+                        position={{
+                            lat: currentMarker.lat,
+                            lng: currentMarker.lng,
+                        }}
+                    />
                 ) : null}
                 {route.map((marker) => (
                     <Marker
                         key={marker.id}
                         position={{
-                            lat: marker.lat,
-                            lng: marker.lng,
+                            lat: marker.position.lat,
+                            lng: marker.position.lng,
                         }}
                         title={marker.title}></Marker>
                 ))}

@@ -1,5 +1,5 @@
 import { ActionType } from '../action-types';
-import { Action, Marker } from '../actions';
+import { Action, Marker, Position, tentativePosition } from '../actions';
 import { Dispatch } from 'redux';
 
 export const createMarker = (marker: Marker) => {
@@ -8,6 +8,17 @@ export const createMarker = (marker: Marker) => {
         dispatch({
             type: ActionType.CREATE_MARKER,
             payload: marker,
+        });
+    };
+};
+
+export const setCurrentMarker = (
+    position: Position | tentativePosition | undefined,
+) => {
+    return (dispatch: Dispatch<Action>): void => {
+        dispatch({
+            type: ActionType.SET_CURRENT_MARKER,
+            payload: position,
         });
     };
 };
