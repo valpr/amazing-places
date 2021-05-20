@@ -31,7 +31,6 @@ const SideMenu: React.FC = () => {
             typeof e.currentTarget.nodeValue === 'string' &&
             indicator === 'lat'
         ) {
-            debugger;
             const value = parseInt(e.currentTarget.nodeValue);
             setCurrentMarker({
                 ...position,

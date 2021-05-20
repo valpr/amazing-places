@@ -9,7 +9,6 @@
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "removeComments": true,
     "allowSyntheticDefaultImports": true,
     "noPropertyAccessFromIndexSignature": true,
     "noUnusedLocals": true,
