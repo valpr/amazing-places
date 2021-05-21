@@ -11,21 +11,15 @@ and hopefully take the step towards visiting the places you want to.
 - [x] actual tsconfig and lint rules
 - [x] Set up a proper redux state for markers/diagram it out
 - [x] Hook up inputs to create marker action
-- [ ] Clean up UI of side menu- proper grid layout?
+- [ ] Blueprint components
+- [ ] Split Pane Interface
+- [ ] Top Bar
+- [ ] Expected UI functionality: clicking on markers populates menu with items
+- [ ] Places Search API-use to scroll to and place marker on map
 - [ ] Add a route rendering component between all markers https://stackoverflow.com/questions/55424790/how-i-draw-a-route-with-react-google-maps-component
-- [ ] Able to add a description to markers (input form on the side?)
-- [ ] Create a 'details menu' on the side
-- [ ] Search box-results will have like 'add a marker here'
+- [ ] Demo the route made from Tom Scott's 'Amazing Places'
 
 # Extensions(To plan steps):
-- Demo the route made from Tom Scott's 'Amazing Places'
-- Account system (log in with social media)
-- Choose a picture to represent place
-- Itinerary
-- Draggable divider between map & side menu
-- Optional destinations/'free-time'
-- Collaboration:
-	- Real-time updates
-	- Sharing with others link/privacy settings
-	- permissions (read-only vs edit vs admin)
-    - Suggestion system
+- Store vacations in back-end
+- Account system (log in with Google)
+
