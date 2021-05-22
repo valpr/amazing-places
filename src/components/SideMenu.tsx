@@ -1,5 +1,4 @@
-import { Drawer } from '@blueprintjs/core';
-import { SMALL } from '@blueprintjs/core/lib/esm/common/classes';
+import { Drawer, DrawerSize } from '@blueprintjs/core';
 import React from 'react';
 import MarkerInput from './MarkerInput';
 
@@ -12,8 +11,9 @@ const SideMenu: React.FC<IProps> = ({ show }: IProps) => {
         <Drawer
             canOutsideClickClose={false}
             hasBackdrop={false}
-            size={SMALL}
-            isOpen={show}>
+            size={DrawerSize.SMALL}
+            isOpen={show}
+            enforceFocus={false}>
             <MarkerInput />
         </Drawer>
     );

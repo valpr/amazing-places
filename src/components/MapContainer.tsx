@@ -43,11 +43,11 @@ const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
         <div className="Map">
             <Map
                 google={google}
-                zoom={10}
+                zoom={12}
                 onClick={handleClick}
                 initialCenter={{
-                    lat: 40.6892,
-                    lng: 74.0445,
+                    lat: 37.4221,
+                    lng: -122.0841,
                 }}
                 styles={[
                     {

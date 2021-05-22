@@ -8,8 +8,9 @@ import {
     NumericInput,
     Card,
     Button,
+    FormGroup,
 } from '@blueprintjs/core';
-//maybe this can slide in eventually
+
 const MarkerInput: React.FC = () => {
     const { createMarker, setCurrentMarker } = useActions();
     const [title, setTitle] = useState('');
@@ -32,17 +33,20 @@ const MarkerInput: React.FC = () => {
     };
 
     const setPosition = (
-        e: React.ChangeEvent<HTMLElement>,
+        _valueAsNumber: number,
+        valueAsString: string,
         indicator: string,
     ) => {
-        if (
-            typeof e.currentTarget.nodeValue === 'string' &&
-            indicator === 'lat'
-        ) {
-            const value = parseInt(e.currentTarget.nodeValue);
+        const value = parseFloat(valueAsString);
+        if (!isNaN(value) && indicator === 'lat') {
             setCurrentMarker({
                 ...position,
                 lat: value,
+            });
+        } else if (!isNaN(value) && indicator === 'lng') {
+            setCurrentMarker({
+                ...position,
+                lng: value,
             });
         }
     };
@@ -56,26 +60,43 @@ const MarkerInput: React.FC = () => {
                 onChange={(e) => setTitle(e.target.value)}
             />
             <TextArea
+                className="desc"
                 placeholder="Enter a description.."
                 growVertically
                 large
+                fill
                 intent={Intent.PRIMARY}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
             />
-            <NumericInput
-                placeholder="Latitude"
-                type="number"
-                value={position?.lat}
-                onChange={(e) => setPosition(e, 'lat')}
-            />
-            <NumericInput
-                placeholder="Longitude"
-                type="number"
-                value={position?.lng}
-                onChange={(e) => setPosition(e, 'lng')}
-            />
-            <Button onClick={onClick}>Submit</Button>
+            <FormGroup>
+                <NumericInput
+                    className="lat"
+                    placeholder="Latitude"
+                    type="number"
+                    onValueChange={(num, stringVal) =>
+                        setPosition(num, stringVal, 'lat')
+                    }
+                    minorStepSize={0.0001}
+                    buttonPosition="none"
+                />
+            </FormGroup>
+            <FormGroup>
+                <NumericInput
+                    className="lng"
+                    placeholder="Longitude"
+                    type="number"
+                    onValueChange={(num, stringVal) =>
+                        setPosition(num, stringVal, 'lng')
+                    }
+                    minorStepSize={0.0001}
+                    buttonPosition="none"
+                />
+            </FormGroup>
+
+            <Button className="submitDestination" onClick={onClick}>
+                Submit
+            </Button>
         </Card>
     );
 };
