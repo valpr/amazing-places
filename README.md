@@ -11,9 +11,9 @@ and hopefully take the step towards visiting the places you want to.
 - [x] actual tsconfig and lint rules
 - [x] Set up a proper redux state for markers/diagram it out
 - [x] Hook up inputs to create marker action
-- [ ] Blueprint components
-- [ ] Drawer for 
-- [ ] Top Bar
+- [x] Blueprint components
+- [x] Drawer
+- [x] Top Bar
 - [ ] Expected UI functionality: clicking on markers populates menu with items
 - [ ] Places Search API-use to scroll to and place marker on map
 - [ ] Add a route rendering component between all markers https://stackoverflow.com/questions/55424790/how-i-draw-a-route-with-react-google-maps-component
