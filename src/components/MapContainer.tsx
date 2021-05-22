@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import {
     Map,
     GoogleApiWrapper,
@@ -7,7 +6,6 @@ import {
     mapEventHandler,
 } from 'google-maps-react';
 import React from 'react';
-import { css } from '@emotion/react';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { useActions } from '../hooks/useActions';
 
@@ -42,18 +40,14 @@ const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
         setCurrentMarker(undefined);
     };
     return (
-        <div
-            css={css`
-                margin-top: 200px;
-            `}
-            className="Map">
+        <div className="Map">
             <Map
                 google={google}
                 zoom={10}
                 onClick={handleClick}
                 initialCenter={{
-                    lat: -1.2884,
-                    lng: 22,
+                    lat: 40.6892,
+                    lng: 74.0445,
                 }}
                 styles={[
                     {

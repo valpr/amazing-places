@@ -12,7 +12,7 @@ and hopefully take the step towards visiting the places you want to.
 - [x] Set up a proper redux state for markers/diagram it out
 - [x] Hook up inputs to create marker action
 - [ ] Blueprint components
-- [ ] Split Pane Interface
+- [ ] Drawer for 
 - [ ] Top Bar
 - [ ] Expected UI functionality: clicking on markers populates menu with items
 - [ ] Places Search API-use to scroll to and place marker on map

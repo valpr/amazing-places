@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
+import {
+    Intent,
+    TextArea,
+    InputGroup,
+    NumericInput,
+    Card,
+    Button,
+} from '@blueprintjs/core';
 //maybe this can slide in eventually
 const SideMenu: React.FC = () => {
     const { createMarker, setCurrentMarker } = useActions();
@@ -40,28 +48,35 @@ const SideMenu: React.FC = () => {
     };
 
     return (
-        <div className="SideMenu">
-            Title:
-            <input value={title} onChange={(e) => setTitle(e.target.value)} />
-            Description
-            <textarea
+        <Card interactive elevation={2} className="SideMenu">
+            <InputGroup
+                placeholder="Title"
+                large
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+            />
+            <TextArea
+                placeholder="Enter a description.."
+                growVertically
+                large
+                intent={Intent.PRIMARY}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
             />
-            lat:
-            <input
+            <NumericInput
+                placeholder="Latitude"
                 type="number"
                 value={position?.lat}
                 onChange={(e) => setPosition(e, 'lat')}
             />
-            lng:
-            <input
+            <NumericInput
+                placeholder="Longitude"
                 type="number"
                 value={position?.lng}
                 onChange={(e) => setPosition(e, 'lng')}
             />
-            <button onClick={onClick}>Submit</button>
-        </div>
+            <Button onClick={onClick}>Submit</Button>
+        </Card>
     );
 };
 
