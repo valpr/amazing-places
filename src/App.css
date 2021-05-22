@@ -1,4 +1,7 @@
-/* .MarkerInput .submitDestination {
+.MarkerInput {
+    margin-top: 15%;
+}
+.MarkerInput .submitDestination {
     margin-top: 1em;
 }
 .MarkerInput .lng {
@@ -13,4 +16,4 @@
 }
 .MarkerInput .lat {
     margin-top: 1em;
-} */
+}

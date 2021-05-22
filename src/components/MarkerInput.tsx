@@ -5,10 +5,10 @@ import {
     Intent,
     TextArea,
     InputGroup,
-    NumericInput,
     Card,
     Button,
     FormGroup,
+    NumericInput,
 } from '@blueprintjs/core';
 
 const MarkerInput: React.FC = () => {
@@ -79,6 +79,7 @@ const MarkerInput: React.FC = () => {
                     }
                     minorStepSize={0.0001}
                     buttonPosition="none"
+                    value={position?.lat}
                 />
             </FormGroup>
             <FormGroup>
@@ -91,6 +92,7 @@ const MarkerInput: React.FC = () => {
                     }
                     minorStepSize={0.0001}
                     buttonPosition="none"
+                    value={position?.lng}
                 />
             </FormGroup>
 

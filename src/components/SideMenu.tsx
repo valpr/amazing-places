@@ -4,16 +4,21 @@ import MarkerInput from './MarkerInput';
 
 interface IProps {
     show: boolean;
+    toggleDrawer: () => void;
 }
 
-const SideMenu: React.FC<IProps> = ({ show }: IProps) => {
+const SideMenu: React.FC<IProps> = ({ show, toggleDrawer }: IProps) => {
     return (
         <Drawer
             canOutsideClickClose={false}
             hasBackdrop={false}
             size={DrawerSize.SMALL}
             isOpen={show}
-            enforceFocus={false}>
+            enforceFocus={false}
+            onClose={toggleDrawer}
+            shouldReturnFocusOnClose
+            isCloseButtonShown
+            title="Side Menu">
             <MarkerInput />
         </Drawer>
     );

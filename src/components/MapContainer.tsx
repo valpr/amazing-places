@@ -29,6 +29,7 @@ const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
         _map,
         event: { latLng: { lat: () => number; lng: () => number } },
     ) => {
+        console.log('click detected');
         const newMarker = {
             lat: event.latLng.lat(),
             lng: event.latLng.lng(),
@@ -39,6 +40,11 @@ const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
     const onMarkerClick = () => {
         setCurrentMarker(undefined);
     };
+
+    const loadHistoryMarker = (marker: Marker) => {
+        setCurrentMarker(marker);
+    };
+
     return (
         <div className="Map">
             <Map
@@ -157,7 +163,8 @@ const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
                             lat: marker.position.lat,
                             lng: marker.position.lng,
                         }}
-                        title={marker.title}></Marker>
+                        title={marker.title}
+                        onClick={() => loadHistoryMarker(marker)}></Marker>
                 ))}
             </Map>
         </div>

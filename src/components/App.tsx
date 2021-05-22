@@ -18,7 +18,9 @@ const App: React.FC = () => {
         <Provider store={store}>
             <div className="app">
                 <Topbar toggleDrawer={toggleDrawer} />
-                {showDrawer ? <SideMenu show={showDrawer} /> : null}
+                {showDrawer ? (
+                    <SideMenu toggleDrawer={toggleDrawer} show={showDrawer} />
+                ) : null}
                 <MapContainer />
             </div>
         </Provider>
