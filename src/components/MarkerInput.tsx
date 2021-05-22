@@ -69,32 +69,28 @@ const MarkerInput: React.FC = () => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
             />
-            <FormGroup>
-                <NumericInput
-                    className="lat"
-                    placeholder="Latitude"
-                    type="number"
-                    onValueChange={(num, stringVal) =>
-                        setPosition(num, stringVal, 'lat')
-                    }
-                    minorStepSize={0.0001}
-                    buttonPosition="none"
-                    value={position?.lat}
-                />
-            </FormGroup>
-            <FormGroup>
-                <NumericInput
-                    className="lng"
-                    placeholder="Longitude"
-                    type="number"
-                    onValueChange={(num, stringVal) =>
-                        setPosition(num, stringVal, 'lng')
-                    }
-                    minorStepSize={0.0001}
-                    buttonPosition="none"
-                    value={position?.lng}
-                />
-            </FormGroup>
+            <NumericInput
+                className="lat"
+                placeholder="Latitude"
+                type="number"
+                onValueChange={(num, stringVal) =>
+                    setPosition(num, stringVal, 'lat')
+                }
+                minorStepSize={0.0001}
+                buttonPosition="none"
+                value={position?.lat}
+            />
+            <NumericInput
+                className="lng"
+                placeholder="Longitude"
+                type="number"
+                onValueChange={(num, stringVal) =>
+                    setPosition(num, stringVal, 'lng')
+                }
+                minorStepSize={0.0001}
+                buttonPosition="none"
+                value={position?.lng}
+            />
 
             <Button className="submitDestination" onClick={onClick}>
                 Submit

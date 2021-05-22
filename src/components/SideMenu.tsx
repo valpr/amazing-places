@@ -14,11 +14,10 @@ const SideMenu: React.FC<IProps> = ({ show, toggleDrawer }: IProps) => {
             hasBackdrop={false}
             size={DrawerSize.SMALL}
             isOpen={show}
-            enforceFocus={false}
             onClose={toggleDrawer}
-            shouldReturnFocusOnClose
             isCloseButtonShown
-            title="Side Menu">
+            title="Side Menu"
+            enforceFocus={false}>
             <MarkerInput />
         </Drawer>
     );
