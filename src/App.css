@@ -1,22 +1,7 @@
-.MarkerInput {
-    margin-top: 15%;
-}
-.MarkerInput .submitDestination {
-    margin-top: 1em;
-}
-.MarkerInput .lng {
-    margin-top: 1em;
-}
-.MarkerInput .lat {
-    margin-top: 1em;
-
-}
 .MarkerInput .desc {
     margin-top: 1em;
 }
-.MarkerInput .lat {
-    margin-top: 1em;
-}
+
 
 .bp3-overlay {
     width:360px;
