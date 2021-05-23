@@ -1,11 +1,11 @@
 import { ActionType } from '../action-types';
-import { Action, Marker, tentativePosition } from '../actions';
+import { Action, CustomMarker } from '../actions';
 
 interface VacationState {
-    route: Marker[];
+    route: CustomMarker[];
     date?: Date;
     name: string;
-    currentMarker?: tentativePosition;
+    currentMarker?: Partial<CustomMarker>;
 }
 
 const initialState = {
@@ -32,9 +32,21 @@ const reducer = (
         case ActionType.CREATE_MARKER:
             return { ...state, route: [...state.route, action.payload] };
         case ActionType.DELETE_MARKER:
-            return state;
+            return {
+                ...state,
+                route: state.route.filter(
+                    (marker) => marker.id !== action.payload.id,
+                ),
+            };
         case ActionType.EDIT_MARKER:
-            return state;
+            return {
+                ...state,
+                route: state.route.map((marker) =>
+                    marker.id === action.payload?.id
+                        ? { ...marker, ...action.payload }
+                        : marker,
+                ),
+            };
         case ActionType.SET_CURRENT_MARKER:
             return {
                 ...state,

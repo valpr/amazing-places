@@ -31,8 +31,10 @@ const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
     ) => {
         console.log('click detected');
         const newMarker = {
-            lat: event.latLng.lat(),
-            lng: event.latLng.lng(),
+            position: {
+                lat: event.latLng.lat(),
+                lng: event.latLng.lng(),
+            },
         };
         setCurrentMarker(newMarker);
     };
@@ -73,13 +75,13 @@ const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
                         onClick={() => loadHistoryMarker(marker)}></Marker>
                 ))}
                 {currentMarker &&
-                typeof currentMarker.lat !== 'undefined' &&
-                typeof currentMarker.lng !== 'undefined' ? (
+                typeof currentMarker.position?.lat !== 'undefined' &&
+                typeof currentMarker.position?.lng !== 'undefined' ? (
                     <Marker
                         onClick={onMarkerClick}
                         position={{
-                            lat: currentMarker.lat,
-                            lng: currentMarker.lng,
+                            lat: currentMarker.position?.lat,
+                            lng: currentMarker.position?.lng,
                         }}
                     />
                 ) : null}

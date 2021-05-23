@@ -1,8 +1,8 @@
 import { ActionType } from '../action-types';
-import { Action, Marker, Position, tentativePosition } from '../actions';
+import { Action, CustomMarker } from '../actions';
 import { Dispatch } from 'redux';
 
-export const createMarker = (marker: Marker) => {
+export const createMarker = (marker: CustomMarker) => {
     return async (dispatch: Dispatch<Action>): Promise<void> => {
         //will be async later
         dispatch({
@@ -13,12 +13,30 @@ export const createMarker = (marker: Marker) => {
 };
 
 export const setCurrentMarker = (
-    position: Position | tentativePosition | undefined,
+    position: Partial<CustomMarker> | undefined,
 ) => {
     return (dispatch: Dispatch<Action>): void => {
         dispatch({
             type: ActionType.SET_CURRENT_MARKER,
             payload: position,
+        });
+    };
+};
+
+export const editMarker = (markerSelected: CustomMarker) => {
+    return (dispatch: Dispatch<Action>): void => {
+        dispatch({
+            type: ActionType.EDIT_MARKER,
+            payload: markerSelected,
+        });
+    };
+};
+
+export const deleteMarker = (markerToDelete: CustomMarker) => {
+    return (dispatch: Dispatch<Action>): void => {
+        dispatch({
+            type: ActionType.DELETE_MARKER,
+            payload: markerToDelete,
         });
     };
 };

@@ -1,6 +1,6 @@
 import { ActionType } from '../action-types';
 
-export interface Marker {
+export interface CustomMarker {
     position: Position;
     description: string;
     title: string;
@@ -14,29 +14,24 @@ export interface Position {
     lng: number;
 }
 
-export interface tentativePosition {
-    lat?: number;
-    lng?: number;
-}
-
 interface CreateMarkerAction {
     type: ActionType.CREATE_MARKER;
-    payload: Marker;
+    payload: CustomMarker;
 }
 
 interface DeleteMarkerAction {
     type: ActionType.DELETE_MARKER;
-    payload: number;
+    payload: CustomMarker;
 }
 
 interface ModifyMarkerAction {
     type: ActionType.EDIT_MARKER;
-    payload: Partial<Marker>;
+    payload: Partial<CustomMarker>;
 }
 
 interface SetCurrentMarker {
     type: ActionType.SET_CURRENT_MARKER;
-    payload: Position | tentativePosition | undefined;
+    payload: Partial<CustomMarker> | undefined;
 }
 
 export type Action =
