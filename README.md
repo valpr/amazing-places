@@ -15,10 +15,11 @@ and hopefully take the step towards visiting the places you want to.
 - [x] Drawer
 - [x] Top Bar
 - [ ] Expected UI functionality: clicking on markers populates menu with items
+- [ ] add a list of marker functionality
 https://developers.google.com/maps/documentation/javascript/examples/event-poi#maps_event_poi-typescript
 - [ ] Display currently saved markers as a route
 - [ ] Places Search API-use to scroll to and place marker on map
 - [ ] Add a route rendering component between all markers https://stackoverflow.com/questions/55424790/how-i-draw-a-route-with-react-google-maps-component
-- [ ] Demo the route made from Tom Scott's 'Amazing Places'
+- [ ] Demo the route made from Tom Scott's 'Amazing Places' (initial state)
 
 
