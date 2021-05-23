@@ -7,6 +7,8 @@ export interface CustomMarker {
     author?: string;
     duration?: Date;
     id: number;
+    placeID?: string;
+    address?: string;
 }
 
 export interface Position {

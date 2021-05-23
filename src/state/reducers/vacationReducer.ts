@@ -21,7 +21,7 @@ const initialState = {
             title: 'test',
         },
     ],
-    date: undefined,
+    placeID: '',
     name: '',
     latestID: 1,
 };

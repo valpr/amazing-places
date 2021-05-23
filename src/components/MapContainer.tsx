@@ -8,13 +8,21 @@ import {
 import React from 'react';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { useActions } from '../hooks/useActions';
+import SideMenu from './SideMenu';
 
 interface propShape {
     google: GoogleAPI;
     loaded: boolean;
+    toggleDrawer: () => void;
+    showDrawer: boolean;
 }
 
-const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
+const MapContainer: React.FC<propShape> = ({
+    google,
+    loaded,
+    toggleDrawer,
+    showDrawer,
+}: propShape) => {
     const { setCurrentMarker } = useActions();
     const { route, currentMarker } = useTypedSelector(
         (state) => state.vacations,
@@ -24,19 +32,45 @@ const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
         return <div>loading</div>;
     }
 
+    const geocoder = new google.maps.Geocoder();
+
     const handleClick: mapEventHandler = (
         _mapProps,
         _map,
         event: { latLng: { lat: () => number; lng: () => number } },
     ) => {
-        console.log('click detected');
-        const newMarker = {
-            position: {
-                lat: event.latLng.lat(),
-                lng: event.latLng.lng(),
+        const lat = event.latLng.lat();
+        const lng = event.latLng.lng();
+        geocoder.geocode(
+            { location: { lat, lng } },
+            (
+                results: google.maps.GeocoderResult[],
+                status: google.maps.GeocoderStatus,
+            ) => {
+                if (status === 'OK') {
+                    let address = '';
+                    let placeID = '';
+                    if (results[0]) {
+                        address = `${results[0].formatted_address}`;
+                        placeID = results[0].place_id;
+                    } else {
+                        alert('No results found for your search');
+                    }
+                    const newMarker = {
+                        title: '',
+                        address,
+                        position: {
+                            lat: lat,
+                            lng: lng,
+                        },
+                        placeID,
+                    };
+                    setCurrentMarker(newMarker);
+                } else {
+                    alert('Error with request: ' + status);
+                }
             },
-        };
-        setCurrentMarker(newMarker);
+        );
     };
 
     const onMarkerClick = () => {
@@ -54,6 +88,13 @@ const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
 
     return (
         <div className="Map">
+            {showDrawer ? (
+                <SideMenu
+                    google={google}
+                    toggleDrawer={toggleDrawer}
+                    show={showDrawer}
+                />
+            ) : null}
             <Map
                 google={google}
                 zoom={12}
@@ -62,7 +103,11 @@ const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
                     lat: 37.4221,
                     lng: -122.0841,
                 }}
-                center={currentMarker?.id ? currentMarker?.position : undefined}
+                center={
+                    currentMarker?.id || currentMarker?.placeID
+                        ? currentMarker?.position
+                        : undefined
+                }
                 disableDefaultUI>
                 {route.map((marker) => (
                     <Marker

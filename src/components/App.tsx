@@ -5,7 +5,6 @@ import Topbar from './TopBar';
 import '../App.css';
 import { Provider } from 'react-redux';
 import { store } from '../state';
-import SideMenu from './SideMenu';
 
 const App: React.FC = () => {
     const [showDrawer, setShowDrawer] = useState(false);
@@ -18,10 +17,11 @@ const App: React.FC = () => {
         <Provider store={store}>
             <div className="app">
                 <Topbar toggleDrawer={toggleDrawer} />
-                {showDrawer ? (
-                    <SideMenu toggleDrawer={toggleDrawer} show={showDrawer} />
-                ) : null}
-                <MapContainer />
+
+                <MapContainer
+                    toggleDrawer={toggleDrawer}
+                    showDrawer={showDrawer}
+                />
             </div>
         </Provider>
     );
