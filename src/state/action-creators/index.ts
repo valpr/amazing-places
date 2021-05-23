@@ -23,7 +23,7 @@ export const setCurrentMarker = (
     };
 };
 
-export const editMarker = (markerSelected: CustomMarker) => {
+export const editMarker = (markerSelected: Partial<CustomMarker>) => {
     return (dispatch: Dispatch<Action>): void => {
         dispatch({
             type: ActionType.EDIT_MARKER,

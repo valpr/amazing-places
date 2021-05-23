@@ -23,5 +23,6 @@ https://developers.google.com/maps/documentation/javascript/examples/event-poi#m
 - [ ] Places Search API-use to scroll to and place marker on map
 - [ ] Add a route rendering component between all markers https://stackoverflow.com/questions/55424790/how-i-draw-a-route-with-react-google-maps-component
 - [ ] Demo the route made from Tom Scott's 'Amazing Places' (initial state)
+- [ ] Place classification (food, entertainment, exercise, hotel, shopping, work-display with icons etc)
 
 

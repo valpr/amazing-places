@@ -6,9 +6,13 @@ import { useActions } from '../hooks/useActions';
 
 const CurrentRoute: React.FC = () => {
     const { route } = useTypedSelector((state) => state.vacations);
-    const { setCurrentMarker } = useActions();
+    const { setCurrentMarker, deleteMarker } = useActions();
     const onClick = (marker: CustomMarker) => {
         setCurrentMarker(marker);
+    };
+
+    const onClickDelete = (marker: CustomMarker) => {
+        deleteMarker(marker);
     };
 
     return (
@@ -23,6 +27,9 @@ const CurrentRoute: React.FC = () => {
                         </Callout>
                         <Button onClick={() => onClick(marker)}>
                             See location
+                        </Button>
+                        <Button onClick={() => onClickDelete(marker)}>
+                            Delete this location
                         </Button>
                     </Card>
                 );

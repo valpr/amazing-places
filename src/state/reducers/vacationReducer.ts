@@ -26,6 +26,15 @@ const initialState = {
     latestID: 1,
 };
 
+const currentMarkerDefaultState = {
+    position: {
+        lat: 0,
+        lng: 0,
+    },
+    title: '',
+    description: '',
+};
+
 const reducer = (
     state: VacationState = initialState,
     action: Action,
@@ -36,6 +45,7 @@ const reducer = (
                 ...state,
                 latestID: action.payload.id,
                 route: [...state.route, action.payload],
+                currentMarker: currentMarkerDefaultState,
             };
         case ActionType.DELETE_MARKER:
             return {
@@ -43,6 +53,7 @@ const reducer = (
                 route: state.route.filter(
                     (marker) => marker.id !== action.payload.id,
                 ),
+                currentMarker: currentMarkerDefaultState,
             };
         case ActionType.EDIT_MARKER:
             return {
@@ -52,6 +63,7 @@ const reducer = (
                         ? { ...marker, ...action.payload }
                         : marker,
                 ),
+                currentMarker: currentMarkerDefaultState,
             };
         case ActionType.SET_CURRENT_MARKER:
             return {

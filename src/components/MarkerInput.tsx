@@ -12,19 +12,29 @@ import {
 } from '@blueprintjs/core';
 
 const MarkerInput: React.FC = () => {
-    const { createMarker, setCurrentMarker } = useActions();
+    const { createMarker, setCurrentMarker, editMarker } = useActions();
     const { currentMarker, latestID } = useTypedSelector(
         (state) => state.vacations,
     );
     const onClick = () => {
-        //test out CreateMarker action here
-        if (currentMarker && currentMarker.position)
+        if (
+            currentMarker &&
+            currentMarker.id &&
+            currentMarker.position &&
+            currentMarker.position.lat &&
+            currentMarker.position.lng
+        ) {
+            editMarker(currentMarker);
+            console.log(currentMarker);
+        } else if (currentMarker && currentMarker.position) {
             createMarker({
                 id: latestID + 1,
                 position: currentMarker.position,
                 description: currentMarker?.description || '',
                 title: currentMarker?.title || '',
             });
+            console.log(currentMarker);
+        }
     };
 
     const setTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -119,7 +129,7 @@ const MarkerInput: React.FC = () => {
             </FormGroup>
 
             <Button className="submitDestination" onClick={onClick}>
-                Submit
+                {currentMarker?.id ? 'Edit' : 'Submit'}
             </Button>
         </Card>
     );
