@@ -1,5 +1,6 @@
 import { Drawer, DrawerSize } from '@blueprintjs/core';
 import React from 'react';
+import CurrentRoute from './CurrentRoute';
 import MarkerInput from './MarkerInput';
 
 interface IProps {
@@ -19,6 +20,7 @@ const SideMenu: React.FC<IProps> = ({ show, toggleDrawer }: IProps) => {
             title="Side Menu"
             enforceFocus={false}>
             <MarkerInput />
+            <CurrentRoute />
         </Drawer>
     );
 };

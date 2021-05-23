@@ -14,10 +14,12 @@ and hopefully take the step towards visiting the places you want to.
 - [x] Blueprint components
 - [x] Drawer
 - [x] Top Bar
-- [ ] Expected UI functionality: clicking on markers populates menu with items
-- [ ] add a list of marker functionality
+- [x] Expected UI functionality: clicking on markers populates menu with items
+- [x] add a list of marker functionality
 https://developers.google.com/maps/documentation/javascript/examples/event-poi#maps_event_poi-typescript
-- [ ] Display currently saved markers as a route
+- [x] Display currently saved markers as a route
+- [x] Scroll to function on map
+- [ ] Delete marker function/Edit existing marker function
 - [ ] Places Search API-use to scroll to and place marker on map
 - [ ] Add a route rendering component between all markers https://stackoverflow.com/questions/55424790/how-i-draw-a-route-with-react-google-maps-component
 - [ ] Demo the route made from Tom Scott's 'Amazing Places' (initial state)

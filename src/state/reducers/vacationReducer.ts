@@ -6,12 +6,13 @@ interface VacationState {
     date?: Date;
     name: string;
     currentMarker?: Partial<CustomMarker>;
+    latestID: number;
 }
 
 const initialState = {
     route: [
         {
-            id: 0,
+            id: 1,
             position: {
                 lat: -1.2884,
                 lng: 22,
@@ -22,6 +23,7 @@ const initialState = {
     ],
     date: undefined,
     name: '',
+    latestID: 1,
 };
 
 const reducer = (
@@ -30,7 +32,11 @@ const reducer = (
 ): VacationState => {
     switch (action.type) {
         case ActionType.CREATE_MARKER:
-            return { ...state, route: [...state.route, action.payload] };
+            return {
+                ...state,
+                latestID: action.payload.id,
+                route: [...state.route, action.payload],
+            };
         case ActionType.DELETE_MARKER:
             return {
                 ...state,

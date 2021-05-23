@@ -49,8 +49,7 @@ const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
         title: string;
         position: { lat: number; lng: number };
     }) => {
-        // setCurrentMarker(marker);
-        console.log('in progress', marker);
+        setCurrentMarker(marker);
     };
 
     return (
@@ -63,6 +62,7 @@ const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
                     lat: 37.4221,
                     lng: -122.0841,
                 }}
+                center={currentMarker?.id ? currentMarker?.position : undefined}
                 disableDefaultUI>
                 {route.map((marker) => (
                     <Marker
@@ -75,6 +75,7 @@ const MapContainer: React.FC<propShape> = ({ google, loaded }: propShape) => {
                         onClick={() => loadHistoryMarker(marker)}></Marker>
                 ))}
                 {currentMarker &&
+                typeof currentMarker.id === 'undefined' &&
                 typeof currentMarker.position?.lat !== 'undefined' &&
                 typeof currentMarker.position?.lng !== 'undefined' ? (
                     <Marker

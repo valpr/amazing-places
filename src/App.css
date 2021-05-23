@@ -2,6 +2,10 @@
     margin-top: 1em;
 }
 
+.RouteList {
+    overflow-y: auto;
+    margin: 1em;
+}
 
 .bp3-overlay {
     width:360px;

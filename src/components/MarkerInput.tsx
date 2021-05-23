@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import {
@@ -13,23 +13,32 @@ import {
 
 const MarkerInput: React.FC = () => {
     const { createMarker, setCurrentMarker } = useActions();
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const position = useTypedSelector(
-        ({ vacations }) => vacations.currentMarker,
+    const { currentMarker, latestID } = useTypedSelector(
+        (state) => state.vacations,
     );
     const onClick = () => {
         //test out CreateMarker action here
-        if (position && position.lat && position.lng)
+        if (currentMarker && currentMarker.position)
             createMarker({
-                id: Math.random(),
-                position: {
-                    lat: position.lat,
-                    lng: position.lng,
-                },
-                description,
-                title,
+                id: latestID + 1,
+                position: currentMarker.position,
+                description: currentMarker?.description || '',
+                title: currentMarker?.title || '',
             });
+    };
+
+    const setTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCurrentMarker({
+            ...currentMarker,
+            title: e.target.value,
+        });
+    };
+
+    const setDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setCurrentMarker({
+            ...currentMarker,
+            description: e.target.value,
+        });
     };
 
     const setPosition = (
@@ -40,13 +49,24 @@ const MarkerInput: React.FC = () => {
         const value = parseFloat(valueAsString);
         if (!isNaN(value) && indicator === 'lat') {
             setCurrentMarker({
-                ...position,
-                lat: value,
+                ...currentMarker,
+
+                position: {
+                    lng: currentMarker?.position?.lng
+                        ? currentMarker.position.lng
+                        : 0,
+                    lat: value,
+                },
             });
         } else if (!isNaN(value) && indicator === 'lng') {
             setCurrentMarker({
-                ...position,
-                lng: value,
+                ...currentMarker,
+                position: {
+                    lat: currentMarker?.position?.lat
+                        ? currentMarker.position.lat
+                        : 0,
+                    lng: value,
+                },
             });
         }
     };
@@ -56,8 +76,8 @@ const MarkerInput: React.FC = () => {
             <InputGroup
                 placeholder="Title"
                 large
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                value={currentMarker?.title}
+                onChange={(e) => setTitle(e)}
             />
             <TextArea
                 className="desc"
@@ -66,8 +86,8 @@ const MarkerInput: React.FC = () => {
                 large
                 fill
                 intent={Intent.PRIMARY}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={currentMarker?.description}
+                onChange={(e) => setDescription(e)}
             />
             <FormGroup label="Latitude" labelFor="latitude">
                 <NumericInput
@@ -80,7 +100,7 @@ const MarkerInput: React.FC = () => {
                     }
                     minorStepSize={0.0001}
                     buttonPosition="none"
-                    value={position?.lat}
+                    value={currentMarker?.position?.lat}
                 />
             </FormGroup>
             <FormGroup label="Longitude" labelFor="longitude">
@@ -94,7 +114,7 @@ const MarkerInput: React.FC = () => {
                     }
                     minorStepSize={0.0001}
                     buttonPosition="none"
-                    value={position?.lng}
+                    value={currentMarker?.position?.lng}
                 />
             </FormGroup>
 
