@@ -63,3 +63,18 @@ export const chooseTravelMode = (
         });
     };
 };
+
+export const loadGoogle = (
+    map: google.maps.Map<Element>,
+    directionsService: google.maps.DirectionsService,
+) => {
+    return (dispatch: Dispatch<Action>): void => {
+        dispatch({
+            type: ActionType.LOAD_GOOGLE,
+            payload: {
+                map: map,
+                directionsService: directionsService,
+            },
+        });
+    };
+};

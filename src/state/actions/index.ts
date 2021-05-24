@@ -10,6 +10,7 @@ export interface CustomMarker {
     placeID?: string;
     address?: string;
     travelMode?: google.maps.TravelMode;
+    directionsRenderer?: google.maps.DirectionsRenderer;
 }
 
 export interface Position {
@@ -49,10 +50,19 @@ interface ChangeTravelMode {
     };
 }
 
+interface LoadGoogle {
+    type: ActionType.LOAD_GOOGLE;
+    payload: {
+        map: google.maps.Map<Element>;
+        directionsService: google.maps.DirectionsService;
+    };
+}
+
 export type Action =
     | ModifyMarkerAction
     | DeleteMarkerAction
     | CreateMarkerAction
     | SetCurrentMarker
     | ClearRoute
-    | ChangeTravelMode;
+    | ChangeTravelMode
+    | LoadGoogle;

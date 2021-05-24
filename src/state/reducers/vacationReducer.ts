@@ -9,6 +9,10 @@ interface VacationState {
     name: string;
     currentMarker?: Partial<CustomMarker>;
     latestID: number;
+    googleObjects: {
+        map?: google.maps.Map<Element>;
+        directionsService?: google.maps.DirectionsService;
+    };
 }
 
 const currentMarkerDefaultState = {
@@ -26,11 +30,31 @@ const initialState = {
         {
             id: 1,
             position: {
-                lat: -1.2884,
-                lng: 22,
+                lat: 37.3867049,
+                lng: -122.0319803,
             },
-            description: 'wow!',
-            title: 'test',
+            description: 'First place',
+            title: 'Place 1',
+            travelMode: google?.maps?.TravelMode?.DRIVING,
+        },
+        {
+            id: 2,
+            position: {
+                lat: 37.4529598,
+                lng: -122.1817252,
+            },
+            description: 'Second Place',
+            title: 'Place 2',
+            travelMode: google?.maps?.TravelMode?.DRIVING,
+        },
+        {
+            id: 3,
+            position: {
+                lat: 38.4529598,
+                lng: -122.1817252,
+            },
+            description: 'Third Place',
+            title: 'Place 3',
             travelMode: google?.maps?.TravelMode?.DRIVING,
         },
     ],
@@ -38,6 +62,7 @@ const initialState = {
     name: '',
     latestID: 1,
     currentMarker: currentMarkerDefaultState,
+    googleObjects: {},
 };
 
 const reducer = (
@@ -88,6 +113,14 @@ const reducer = (
                         ? { ...marker, travelMode: action.payload.TravelMode }
                         : marker,
                 ),
+            };
+        case ActionType.LOAD_GOOGLE:
+            return {
+                ...state,
+                googleObjects: {
+                    directionsService: action.payload.directionsService,
+                    map: action.payload.map,
+                },
             };
         default:
             return state;

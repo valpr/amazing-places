@@ -11,9 +11,12 @@ import React from 'react';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { CustomMarker } from '../state';
 import { useActions } from '../hooks/useActions';
+import { editMarker } from '../state/action-creators';
 
 const CurrentRoute: React.FC = () => {
-    const { route } = useTypedSelector((state) => state.vacations);
+    const { route, googleObjects } = useTypedSelector(
+        (state) => state.vacations,
+    );
     const { setCurrentMarker, deleteMarker, clearRoute, chooseTravelMode } =
         useActions();
     const travelMode = google.maps.TravelMode;
@@ -35,6 +38,42 @@ const CurrentRoute: React.FC = () => {
         travelMode: google.maps.TravelMode,
     ) => {
         chooseTravelMode(id, travelMode);
+    };
+
+    const onClickRecalculate = () => {
+        if (!googleObjects.map) return;
+        if (!googleObjects.directionsService) return;
+        const map = googleObjects.map;
+        for (let i = 0; i < route.length - 1; i++) {
+            const directionsDisplay =
+                route[i].directionsRenderer ??
+                new google.maps.DirectionsRenderer();
+            editMarker({ ...route[i], directionsRenderer: directionsDisplay });
+            googleObjects.directionsService.route(
+                {
+                    origin: {
+                        lat: route[i].position.lat,
+                        lng: route[i].position.lng,
+                    },
+                    destination: {
+                        lat: route[i + 1].position.lat,
+                        lng: route[i + 1].position.lng,
+                    },
+                    travelMode:
+                        route[i]?.travelMode ||
+                        google.maps.TravelMode['DRIVING'],
+                },
+                (response, status) => {
+                    if (status == 'OK') {
+                        directionsDisplay.setMap(map);
+                        directionsDisplay.setDirections(response);
+                    } else {
+                        alert('Directions Request failed due to ' + status);
+                    }
+                },
+            );
+        }
+        return;
     };
 
     return (
@@ -113,6 +152,7 @@ const CurrentRoute: React.FC = () => {
                 );
             })}
             <Button onClick={onClickClear}>Clear the current route</Button>
+            <Button onClick={onClickRecalculate}>Recalculate directions</Button>
         </div>
     );
 };

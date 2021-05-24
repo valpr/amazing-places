@@ -9,6 +9,7 @@ import React from 'react';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { useActions } from '../hooks/useActions';
 import SideMenu from './SideMenu';
+import { editMarker } from '../state/action-creators';
 
 interface propShape {
     google: GoogleAPI;
@@ -23,7 +24,7 @@ const MapContainer: React.FC<propShape> = ({
     toggleDrawer,
     showDrawer,
 }: propShape) => {
-    const { setCurrentMarker } = useActions();
+    const { setCurrentMarker, loadGoogle } = useActions();
     const { route, currentMarker } = useTypedSelector(
         (state) => state.vacations,
     );
@@ -95,10 +96,42 @@ const MapContainer: React.FC<propShape> = ({
         //Then we can query each route one at a time based on their transit method
         //make sure to avoid over query limits
         //have a recalculate routes button on the top bar?
-        const directionsService = new google.maps.DirectionsService();
-        const directionsDisplay = new google.maps.DirectionsRenderer();
+
         if (!map) return;
-        directionsDisplay.setMap(map);
+        const directionsService = new google.maps.DirectionsService();
+        loadGoogle(map, directionsService);
+
+        for (let i = 0; i < route.length - 1; i++) {
+            const directionsDisplay = new google.maps.DirectionsRenderer();
+            directionsDisplay.setMap(map);
+
+            directionsService.route(
+                {
+                    origin: {
+                        lat: route[i].position.lat,
+                        lng: route[i].position.lng,
+                    },
+                    destination: {
+                        lat: route[i + 1].position.lat,
+                        lng: route[i + 1].position.lng,
+                    },
+                    travelMode:
+                        route[0]?.travelMode ||
+                        google.maps.TravelMode['DRIVING'],
+                },
+                (response, status) => {
+                    if (status == 'OK') {
+                        directionsDisplay.setDirections(response);
+                        editMarker({
+                            ...route[i],
+                            directionsRenderer: directionsDisplay,
+                        });
+                    } else {
+                        alert('Directions Request failed due to ' + status);
+                    }
+                },
+            );
+        }
     };
 
     return (
@@ -133,6 +166,7 @@ const MapContainer: React.FC<propShape> = ({
                             lng: marker.position.lng,
                         }}
                         title={marker.title}
+                        icon={'' + marker.id}
                         onClick={() => loadHistoryMarker(marker)}></Marker>
                 ))}
                 {currentMarker &&
