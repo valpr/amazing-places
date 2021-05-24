@@ -9,6 +9,7 @@ export interface CustomMarker {
     id: number;
     placeID?: string;
     address?: string;
+    travelMode?: google.maps.TravelMode;
 }
 
 export interface Position {
@@ -36,8 +37,22 @@ interface SetCurrentMarker {
     payload: Partial<CustomMarker> | undefined;
 }
 
+interface ClearRoute {
+    type: ActionType.CLEAR_ROUTE;
+}
+
+interface ChangeTravelMode {
+    type: ActionType.CHANGE_TRAVEL_MODE;
+    payload: {
+        id: number;
+        TravelMode: google.maps.TravelMode;
+    };
+}
+
 export type Action =
     | ModifyMarkerAction
     | DeleteMarkerAction
     | CreateMarkerAction
-    | SetCurrentMarker;
+    | SetCurrentMarker
+    | ClearRoute
+    | ChangeTravelMode;

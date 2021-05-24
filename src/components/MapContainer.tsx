@@ -86,6 +86,20 @@ const MapContainer: React.FC<propShape> = ({
         setCurrentMarker(marker);
     };
 
+    const renderCurrentRoute: mapEventHandler = (
+        _mapProps,
+        map: google.maps.Map<Element> | undefined,
+    ) => {
+        //TODO: each marker will have a WALKING | BIKING | DRIVING | TRANSIT property on it
+        //Then we can query each route one at a time based on their transit method
+        //make sure to avoid over query limits
+        //have a recalculate routes button on the top bar?
+        const directionsService = new google.maps.DirectionsService();
+        const directionsDisplay = new google.maps.DirectionsRenderer();
+        if (!map) return;
+        directionsDisplay.setMap(map);
+    };
+
     return (
         <div className="Map">
             {showDrawer ? (
@@ -103,6 +117,7 @@ const MapContainer: React.FC<propShape> = ({
                     lat: 37.4221,
                     lng: -122.0841,
                 }}
+                onReady={renderCurrentRoute}
                 center={
                     currentMarker?.id || currentMarker?.placeID
                         ? currentMarker?.position

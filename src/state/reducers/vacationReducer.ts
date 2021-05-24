@@ -33,6 +33,7 @@ const currentMarkerDefaultState = {
     },
     title: '',
     description: '',
+    travelMode: google.maps.TravelMode.DRIVING,
 };
 
 const reducer = (
@@ -69,6 +70,20 @@ const reducer = (
             return {
                 ...state,
                 currentMarker: action.payload,
+            };
+        case ActionType.CLEAR_ROUTE:
+            return {
+                ...state,
+                route: [],
+            };
+        case ActionType.CHANGE_TRAVEL_MODE:
+            return {
+                ...state,
+                route: state.route.map((marker) =>
+                    marker.id === action.payload?.id
+                        ? { ...marker, travelMode: action.payload.TravelMode }
+                        : marker,
+                ),
             };
         default:
             return state;

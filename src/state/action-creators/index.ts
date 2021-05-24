@@ -40,3 +40,11 @@ export const deleteMarker = (markerToDelete: CustomMarker) => {
         });
     };
 };
+
+export const clearRoute = () => {
+    return (dispatch: Dispatch<Action>): void => {
+        dispatch({
+            type: ActionType.CLEAR_ROUTE,
+        });
+    };
+};

@@ -20,8 +20,12 @@ and hopefully take the step towards visiting the places you want to.
 - [x] Scroll to function on map
 - [x] Delete marker function/Edit existing marker function
 - [x] Places Search API-use to scroll to and place marker on map
-- [ ] clear current route button
+- [x] clear current route button
 - [ ] Add a route rendering component between all markers https://developers.google.com/maps/documentation/javascript/directions
+    multiple options: Choose Travel Mode,
+    Transit options
+    Driving options
+    optimize waypoints
 - [ ] Demo a route made from Tom Scott's 'Amazing Places'
 ## Fluff
 - [ ] Place classification (food, entertainment, exercise, hotel, shopping, work-display with icons etc)

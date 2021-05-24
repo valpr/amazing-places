@@ -6,13 +6,17 @@ import { useActions } from '../hooks/useActions';
 
 const CurrentRoute: React.FC = () => {
     const { route } = useTypedSelector((state) => state.vacations);
-    const { setCurrentMarker, deleteMarker } = useActions();
+    const { setCurrentMarker, deleteMarker, clearRoute } = useActions();
     const onClick = (marker: CustomMarker) => {
         setCurrentMarker(marker);
     };
 
     const onClickDelete = (marker: CustomMarker) => {
         deleteMarker(marker);
+    };
+
+    const onClickClear = () => {
+        clearRoute();
     };
 
     return (
@@ -25,6 +29,7 @@ const CurrentRoute: React.FC = () => {
                             intent={Intent.PRIMARY}>
                             {marker.description}
                         </Callout>
+                        {/* TODO: Add icon choices for travel to the next node */}
                         <Button onClick={() => onClick(marker)}>
                             See location
                         </Button>
@@ -34,6 +39,7 @@ const CurrentRoute: React.FC = () => {
                     </Card>
                 );
             })}
+            <Button onClick={onClickClear}>Clear the current route</Button>
         </div>
     );
 };
