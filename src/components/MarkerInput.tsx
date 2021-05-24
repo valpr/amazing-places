@@ -10,17 +10,12 @@ import {
     FormGroup,
     NumericInput,
 } from '@blueprintjs/core';
-import { GoogleAPI } from 'google-maps-react';
 import GooglePlacesAutocomplete, {
     geocodeByAddress,
     getLatLng,
 } from 'react-google-places-autocomplete';
 
-interface IProps {
-    google: GoogleAPI;
-}
-
-const MarkerInput: React.FC<IProps> = ({ google }: IProps) => {
+const MarkerInput: React.FC = () => {
     const { createMarker, setCurrentMarker, editMarker } = useActions();
     const { currentMarker, latestID } = useTypedSelector(
         (state) => state.vacations,

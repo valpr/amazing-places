@@ -21,7 +21,7 @@ const SideMenu: React.FC<IProps> = ({ show, toggleDrawer }: IProps) => {
             isCloseButtonShown
             title="Find your place"
             enforceFocus={false}>
-            <MarkerInput google={google} />{' '}
+            <MarkerInput />
             {/* make collapsible in the future */}
             <CurrentRoute />
         </Drawer>
