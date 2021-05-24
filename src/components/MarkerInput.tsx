@@ -35,13 +35,13 @@ const MarkerInput: React.FC<IProps> = ({ google }: IProps) => {
             currentMarker.position.lng
         ) {
             editMarker(currentMarker);
-            console.log(currentMarker);
         } else if (currentMarker && currentMarker.position) {
             createMarker({
                 id: latestID + 1,
                 position: currentMarker.position,
                 description: currentMarker?.description || '',
                 title: currentMarker?.title || '',
+                travelMode: currentMarker?.travelMode,
             });
         }
     };
@@ -80,7 +80,6 @@ const MarkerInput: React.FC<IProps> = ({ google }: IProps) => {
                         lng,
                     },
                 });
-                console.log(currentMarker);
             });
     };
 
@@ -167,10 +166,13 @@ const MarkerInput: React.FC<IProps> = ({ google }: IProps) => {
                     onValueChange={(num, stringVal) =>
                         setPosition(num, stringVal, 'lat')
                     }
-                    minorStepSize={0.0001}
                     buttonPosition="none"
                     value={currentMarker?.position?.lat}
                     disabled={true}
+                    minorStepSize={null}
+                    majorStepSize={null}
+                    min={undefined}
+                    max={undefined}
                 />
             </FormGroup>
             <FormGroup label="Longitude" labelFor="longitude">
@@ -182,10 +184,13 @@ const MarkerInput: React.FC<IProps> = ({ google }: IProps) => {
                     onValueChange={(num, stringVal) =>
                         setPosition(num, stringVal, 'lng')
                     }
-                    minorStepSize={0.0001}
                     buttonPosition="none"
                     value={currentMarker?.position?.lng}
                     disabled={true}
+                    minorStepSize={null}
+                    majorStepSize={null}
+                    min={undefined}
+                    max={undefined}
                 />
             </FormGroup>
 

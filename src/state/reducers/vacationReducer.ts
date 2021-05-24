@@ -1,6 +1,8 @@
 import { ActionType } from '../action-types';
 import { Action, CustomMarker } from '../actions';
 
+const google = window.google;
+
 interface VacationState {
     route: CustomMarker[];
     date?: Date;
@@ -8,6 +10,16 @@ interface VacationState {
     currentMarker?: Partial<CustomMarker>;
     latestID: number;
 }
+
+const currentMarkerDefaultState = {
+    position: {
+        lat: 0,
+        lng: 0,
+    },
+    title: '',
+    description: '',
+    travelMode: google?.maps?.TravelMode?.DRIVING,
+};
 
 const initialState = {
     route: [
@@ -19,21 +31,13 @@ const initialState = {
             },
             description: 'wow!',
             title: 'test',
+            travelMode: google?.maps?.TravelMode?.DRIVING,
         },
     ],
     placeID: '',
     name: '',
     latestID: 1,
-};
-
-const currentMarkerDefaultState = {
-    position: {
-        lat: 0,
-        lng: 0,
-    },
-    title: '',
-    description: '',
-    travelMode: google.maps.TravelMode.DRIVING,
+    currentMarker: currentMarkerDefaultState,
 };
 
 const reducer = (

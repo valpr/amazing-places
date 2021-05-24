@@ -48,3 +48,18 @@ export const clearRoute = () => {
         });
     };
 };
+
+export const chooseTravelMode = (
+    id: number,
+    travelMode: google.maps.TravelMode,
+) => {
+    return (dispatch: Dispatch<Action>): void => {
+        dispatch({
+            type: ActionType.CHANGE_TRAVEL_MODE,
+            payload: {
+                id,
+                TravelMode: travelMode,
+            },
+        });
+    };
+};

@@ -58,6 +58,7 @@ const MapContainer: React.FC<propShape> = ({
                     }
                     const newMarker = {
                         title: '',
+                        description: '',
                         address,
                         position: {
                             lat: lat,
