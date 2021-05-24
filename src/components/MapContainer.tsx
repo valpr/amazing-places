@@ -25,7 +25,7 @@ const MapContainer: React.FC<propShape> = ({
     showDrawer,
 }: propShape) => {
     const { setCurrentMarker, loadGoogle } = useActions();
-    const { route, currentMarker } = useTypedSelector(
+    const { route, currentMarker, googleObjects } = useTypedSelector(
         (state) => state.vacations,
     );
 
@@ -155,7 +155,7 @@ const MapContainer: React.FC<propShape> = ({
                 center={
                     currentMarker?.id || currentMarker?.placeID
                         ? currentMarker?.position
-                        : undefined
+                        : googleObjects?.map?.getCenter().toJSON()
                 }
                 disableDefaultUI>
                 {route.map((marker) => (

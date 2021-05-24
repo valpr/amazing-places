@@ -120,7 +120,7 @@ const MarkerInput: React.FC = () => {
             <InputGroup
                 placeholder="Title"
                 large
-                value={currentMarker?.title}
+                value={currentMarker?.title || ''}
                 onChange={(e) => setTitle(e)}
             />
             <TextArea
@@ -130,14 +130,14 @@ const MarkerInput: React.FC = () => {
                 large
                 fill
                 intent={Intent.PRIMARY}
-                value={currentMarker?.description}
+                value={currentMarker?.description || ''}
                 onChange={(e) => setDescription(e)}
             />
             <FormGroup label="Address" labelFor="Address">
                 <InputGroup
                     placeholder="Address"
                     large
-                    value={currentMarker?.address}
+                    value={currentMarker?.address || ''}
                     onChange={(e) => setAddress(e)}
                 />
             </FormGroup>
@@ -162,12 +162,12 @@ const MarkerInput: React.FC = () => {
                         setPosition(num, stringVal, 'lat')
                     }
                     buttonPosition="none"
-                    value={currentMarker?.position?.lat}
+                    value={currentMarker?.position?.lat || 0}
                     disabled={true}
-                    minorStepSize={null}
-                    majorStepSize={null}
-                    min={undefined}
-                    max={undefined}
+                    minorStepSize={0.00000000000000001}
+                    majorStepSize={5}
+                    min={-90}
+                    max={90}
                 />
             </FormGroup>
             <FormGroup label="Longitude" labelFor="longitude">
@@ -180,12 +180,12 @@ const MarkerInput: React.FC = () => {
                         setPosition(num, stringVal, 'lng')
                     }
                     buttonPosition="none"
-                    value={currentMarker?.position?.lng}
+                    value={currentMarker?.position?.lng || 0}
                     disabled={true}
-                    minorStepSize={null}
-                    majorStepSize={null}
-                    min={undefined}
-                    max={undefined}
+                    minorStepSize={0.00000000000000001}
+                    majorStepSize={5}
+                    min={-180}
+                    max={180}
                 />
             </FormGroup>
 
