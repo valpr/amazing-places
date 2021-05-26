@@ -5,11 +5,13 @@ import {
     Intent,
     Icon,
     IconSize,
+    ButtonGroup,
+    Divider,
 } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 import React from 'react';
 import { useTypedSelector } from '../hooks/useTypedSelector';
-import { CustomMarker } from '../state';
+import { Categories, CustomMarker } from '../state';
 import { useActions } from '../hooks/useActions';
 import { editMarker } from '../state/action-creators';
 
@@ -17,8 +19,13 @@ const CurrentRoute: React.FC = () => {
     const { route, googleObjects } = useTypedSelector(
         (state) => state.vacations,
     );
-    const { setCurrentMarker, deleteMarker, clearRoute, chooseTravelMode } =
-        useActions();
+    const {
+        setCurrentMarker,
+        deleteMarker,
+        clearRoute,
+        chooseTravelMode,
+        changeCategory,
+    } = useActions();
     const travelMode = google.maps.TravelMode;
 
     const onClick = (marker: CustomMarker) => {
@@ -38,6 +45,10 @@ const CurrentRoute: React.FC = () => {
         travelMode: google.maps.TravelMode,
     ) => {
         chooseTravelMode(id, travelMode);
+    };
+
+    const onClickCategory = (id: number, category: Categories) => {
+        changeCategory(id, category);
     };
 
     const onClickRecalculate = () => {
@@ -86,68 +97,139 @@ const CurrentRoute: React.FC = () => {
                             intent={Intent.PRIMARY}>
                             {marker.description}
                         </Callout>
-                        <Icon
-                            iconSize={IconSize.LARGE}
-                            icon={IconNames.WALK}
-                            intent={
-                                marker.travelMode === travelMode.WALKING
-                                    ? Intent.SUCCESS
-                                    : Intent.NONE
-                            }
-                            onClick={() =>
-                                onClickTravelMode(marker.id, travelMode.WALKING)
-                            }></Icon>
-                        <Icon
-                            iconSize={IconSize.LARGE}
-                            icon={IconNames.CYCLE}
-                            intent={
-                                marker.travelMode === travelMode.TWO_WHEELER
-                                    ? Intent.SUCCESS
-                                    : Intent.NONE
-                            }
-                            onClick={() =>
-                                onClickTravelMode(
-                                    marker.id,
-                                    travelMode.TWO_WHEELER,
-                                )
-                            }></Icon>
-                        <Icon
-                            iconSize={IconSize.LARGE}
-                            icon={IconNames.TAXI}
-                            intent={
-                                marker.travelMode === travelMode.DRIVING
-                                    ? Intent.SUCCESS
-                                    : Intent.NONE
-                            }
-                            onClick={() =>
-                                onClickTravelMode(marker.id, travelMode.DRIVING)
-                            }></Icon>
-                        <Icon
-                            iconSize={IconSize.LARGE}
-                            icon={IconNames.TRAIN}
-                            intent={
-                                marker.travelMode === travelMode.TRANSIT
-                                    ? Intent.SUCCESS
-                                    : Intent.NONE
-                            }
-                            onClick={() =>
-                                onClickTravelMode(marker.id, travelMode.TRANSIT)
-                            }></Icon>
-
-                        {/* TODO: Add icon choices for travel to the next node
-                            DRIVING: taxi
-                            BICYCLInG: Cycle-merge two wheelers together
-                            Two wheeler
-                            Walking: Walk
-                            Transit: train
-
-                        */}
-                        <Button onClick={() => onClick(marker)}>
-                            See location
-                        </Button>
-                        <Button onClick={() => onClickDelete(marker)}>
-                            Delete this location
-                        </Button>
+                        <div className="travelModes">
+                            <Icon
+                                iconSize={IconSize.LARGE}
+                                icon={IconNames.WALK}
+                                intent={
+                                    marker.travelMode === travelMode.WALKING
+                                        ? Intent.SUCCESS
+                                        : Intent.NONE
+                                }
+                                onClick={() =>
+                                    onClickTravelMode(
+                                        marker.id,
+                                        travelMode.WALKING,
+                                    )
+                                }></Icon>
+                            <Icon
+                                iconSize={IconSize.LARGE}
+                                icon={IconNames.CYCLE}
+                                intent={
+                                    marker.travelMode === travelMode.TWO_WHEELER
+                                        ? Intent.SUCCESS
+                                        : Intent.NONE
+                                }
+                                onClick={() =>
+                                    onClickTravelMode(
+                                        marker.id,
+                                        travelMode.TWO_WHEELER,
+                                    )
+                                }></Icon>
+                            <Icon
+                                iconSize={IconSize.LARGE}
+                                icon={IconNames.TAXI}
+                                intent={
+                                    marker.travelMode === travelMode.DRIVING
+                                        ? Intent.SUCCESS
+                                        : Intent.NONE
+                                }
+                                onClick={() =>
+                                    onClickTravelMode(
+                                        marker.id,
+                                        travelMode.DRIVING,
+                                    )
+                                }></Icon>
+                            <Icon
+                                iconSize={IconSize.LARGE}
+                                icon={IconNames.TRAIN}
+                                intent={
+                                    marker.travelMode === travelMode.TRANSIT
+                                        ? Intent.SUCCESS
+                                        : Intent.NONE
+                                }
+                                onClick={() =>
+                                    onClickTravelMode(
+                                        marker.id,
+                                        travelMode.TRANSIT,
+                                    )
+                                }></Icon>
+                        </div>
+                        <Divider />
+                        <div className="categories">
+                            <Icon
+                                iconSize={IconSize.LARGE}
+                                icon={IconNames.OFFICE}
+                                intent={
+                                    marker?.category === Categories.WORK
+                                        ? Intent.PRIMARY
+                                        : Intent.NONE
+                                }
+                                onClick={() =>
+                                    onClickCategory(marker.id, Categories.WORK)
+                                }></Icon>
+                            <Icon
+                                iconSize={IconSize.LARGE}
+                                icon={IconNames.GLASS}
+                                intent={
+                                    marker?.category === Categories.RESTAURANT
+                                        ? Intent.PRIMARY
+                                        : Intent.NONE
+                                }
+                                onClick={() =>
+                                    onClickCategory(
+                                        marker.id,
+                                        Categories.RESTAURANT,
+                                    )
+                                }></Icon>
+                            <Icon
+                                iconSize={IconSize.LARGE}
+                                icon={IconNames.MOUNTAIN}
+                                intent={
+                                    marker?.category === Categories.ACTIVITY
+                                        ? Intent.PRIMARY
+                                        : Intent.NONE
+                                }
+                                onClick={() =>
+                                    onClickCategory(
+                                        marker.id,
+                                        Categories.ACTIVITY,
+                                    )
+                                }></Icon>
+                            <Icon
+                                iconSize={IconSize.LARGE}
+                                icon={IconNames.MOON}
+                                intent={
+                                    marker?.category === Categories.SLEEP
+                                        ? Intent.PRIMARY
+                                        : Intent.NONE
+                                }
+                                onClick={() =>
+                                    onClickCategory(marker.id, Categories.SLEEP)
+                                }></Icon>
+                            <Icon
+                                iconSize={IconSize.LARGE}
+                                icon={IconNames.SHOPPING_CART}
+                                intent={
+                                    marker?.category === Categories.SHOPPING
+                                        ? Intent.PRIMARY
+                                        : Intent.NONE
+                                }
+                                onClick={() =>
+                                    onClickCategory(
+                                        marker.id,
+                                        Categories.SHOPPING,
+                                    )
+                                }></Icon>
+                        </div>
+                        <ButtonGroup fill large>
+                            <Button onClick={() => onClick(marker)}>
+                                See location
+                            </Button>
+                            <Button onClick={() => onClickDelete(marker)}>
+                                Delete this location
+                            </Button>
+                        </ButtonGroup>
                     </Card>
                 );
             })}

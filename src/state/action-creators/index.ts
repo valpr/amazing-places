@@ -1,5 +1,5 @@
 import { ActionType } from '../action-types';
-import { Action, CustomMarker } from '../actions';
+import { Action, Categories, CustomMarker } from '../actions';
 import { Dispatch } from 'redux';
 
 export const createMarker = (marker: CustomMarker) => {
@@ -74,6 +74,18 @@ export const loadGoogle = (
             payload: {
                 map: map,
                 directionsService: directionsService,
+            },
+        });
+    };
+};
+
+export const changeCategory = (id: number, category: Categories) => {
+    return (dispatch: Dispatch<Action>): void => {
+        dispatch({
+            type: ActionType.CHANGE_CATEGORY,
+            payload: {
+                id,
+                category,
             },
         });
     };

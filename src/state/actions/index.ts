@@ -11,6 +11,15 @@ export interface CustomMarker {
     address?: string;
     travelMode?: google.maps.TravelMode;
     directionsRenderer?: google.maps.DirectionsRenderer;
+    category?: Categories;
+}
+
+export enum Categories {
+    WORK = 1, //OFFICE
+    RESTAURANT = 2, //GLASS
+    SLEEP = 3, //MOON
+    ACTIVITY = 4, // MOUNTAIN
+    SHOPPING = 5, //SHOPPING cart
 }
 
 export interface Position {
@@ -58,6 +67,13 @@ interface LoadGoogle {
     };
 }
 
+interface ChangeCategory {
+    type: ActionType.CHANGE_CATEGORY;
+    payload: {
+        id: number;
+        category: Categories;
+    };
+}
 export type Action =
     | ModifyMarkerAction
     | DeleteMarkerAction
@@ -65,4 +81,5 @@ export type Action =
     | SetCurrentMarker
     | ClearRoute
     | ChangeTravelMode
-    | LoadGoogle;
+    | LoadGoogle
+    | ChangeCategory;

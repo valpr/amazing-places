@@ -22,7 +22,8 @@ and hopefully take the step towards visiting the places you want to.
 - [x] Places Search API-use to scroll to and place marker on map
 - [x] clear current route button
 - [x] Add a route rendering component between all markers https://developers.google.com/maps/documentation/javascript/directions
-- [ ] Demo a route made from Tom Scott's 'Amazing Places'
+- [x] Demo a route made from Tom Scott's 'Amazing Places'
 ## Fluff
-- [ ] Place classification (food, entertainment, exercise, hotel, shopping, work-display with icons etc)
+- [x] Place classification (food, entertainment, exercise, hotel, shopping, work-display with icons etc)
 - [ ] Show an image of the place and populate with description?
+- [ ] implement youtube embedding w. links-parse and replace descriptions with youtube embed https://www.npmjs.com/package/react-youtube?

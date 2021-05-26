@@ -132,6 +132,15 @@ const reducer = (
                     map: action.payload.map,
                 },
             };
+        case ActionType.CHANGE_CATEGORY:
+            return {
+                ...state,
+                route: state.route.map((marker) =>
+                    marker.id === action.payload?.id
+                        ? { ...marker, category: action.payload.category }
+                        : marker,
+                ),
+            };
         default:
             return state;
     }

@@ -10,3 +10,11 @@
 .bp3-overlay {
     width:360px;
 }
+
+.travelModes .bp3-icon {
+    padding-right: 30px;
+}
+
+.categories .bp3-icon {
+    padding-right: 30px;
+}
