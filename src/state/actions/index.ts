@@ -13,6 +13,7 @@ export interface CustomMarker {
     directionsRenderer?: google.maps.DirectionsRenderer;
     category?: Categories;
     photoreference?: string;
+    youtubeID?: string;
 }
 
 export enum Categories {

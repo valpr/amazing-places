@@ -16,9 +16,8 @@ import GooglePlacesAutocomplete, {
 } from 'react-google-places-autocomplete';
 
 const MarkerInput: React.FC = () => {
-    const { createMarker, setCurrentMarker, editMarker, searchPlace } =
-        useActions();
-    const { currentMarker, latestID } = useTypedSelector(
+    const { createMarker, setCurrentMarker, editMarker } = useActions();
+    const { currentMarker, latestID, googleObjects } = useTypedSelector(
         (state) => state.vacations,
     );
 
@@ -76,10 +75,57 @@ const MarkerInput: React.FC = () => {
                         lng,
                     },
                 });
+                if (googleObjects.map) {
+                    const service = new google.maps.places.PlacesService(
+                        googleObjects.map,
+                    );
+                    const request = {
+                        placeId: e.value.place_id,
+                        fields: [
+                            'name',
+                            'website',
+                            'formatted_phone_number',
+                            'business_status',
+                        ],
+                    };
 
-                searchPlace(e.value.place_id);
-                //search places API --place Details then search Photos
-                //Populate currentMarker with photo and description
+                    service.getDetails(request, (placeResult, status) => {
+                        if (
+                            status === google.maps.places.PlacesServiceStatus.OK
+                        ) {
+                            let description = '';
+                            const title = placeResult?.name
+                                ? placeResult.name
+                                : '';
+                            description = placeResult?.website
+                                ? description +
+                                  `Website: ${placeResult.website}` +
+                                  '\n'
+                                : description;
+                            description = placeResult?.formatted_phone_number
+                                ? description +
+                                  `Phone #: ${placeResult.formatted_phone_number}` +
+                                  '\n'
+                                : description;
+                            description = placeResult?.business_status
+                                ? description +
+                                  `Business Status: ${placeResult.business_status}` +
+                                  '\n'
+                                : description;
+                            setCurrentMarker({
+                                ...currentMarker,
+                                title: title,
+                                description: description,
+                                address: e.label,
+                                placeID: e.value.place_id,
+                                position: {
+                                    lat,
+                                    lng,
+                                },
+                            });
+                        }
+                    });
+                }
             });
     };
 
@@ -87,6 +133,13 @@ const MarkerInput: React.FC = () => {
         setCurrentMarker({
             ...currentMarker,
             description: e.target.value,
+        });
+    };
+
+    const setVideoID = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCurrentMarker({
+            ...currentMarker,
+            youtubeID: e.target.value,
         });
     };
 
@@ -127,6 +180,12 @@ const MarkerInput: React.FC = () => {
                 large
                 value={currentMarker?.title || ''}
                 onChange={(e) => setTitle(e)}
+            />
+            <InputGroup
+                placeholder="Youtube URL"
+                large
+                value={currentMarker?.youtubeID || ''}
+                onChange={(e) => setVideoID(e)}
             />
             <TextArea
                 className="desc"

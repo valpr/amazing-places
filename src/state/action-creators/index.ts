@@ -121,9 +121,7 @@ export const getPlaceDetails = (id: number, place_id: string) => {
     return async (dispatch: Dispatch<Action>): Promise<void> => {
         const details = await getGooglePlaceDetails(place_id);
         if (details?.photos && RICH) {
-            const photo = await getGooglePlacePhotos(
-                details.photos[0].photo_reference,
-            );
+            await getGooglePlacePhotos(details.photos[0].photo_reference);
         }
 
         const newDescription = `${details.website}

@@ -23,13 +23,6 @@ export const getGooglePlaceDetails = async (
     id: string,
 ): Promise<GoogleDetailsFormat> => {
     const url = `place/details/json`;
-    debugger;
-    const { data } = await axios.get('https://registry.npmjs.org/-/v1/search', {
-        params: {
-            text: 'react',
-        },
-    });
-
     const result: GoogleDetailsFormat = await instance.get(url, {
         params: {
             place_id: id,

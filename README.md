@@ -25,6 +25,6 @@ and hopefully take the step towards visiting the places you want to.
 - [x] Demo a route made from Tom Scott's 'Amazing Places'
 ## Fluff
 - [x] Place classification (food, entertainment, exercise, hotel, shopping, work-display with icons etc)
-- [ ] Show Details on places search
-https://developers.google.com/maps/documentation/javascript/places#place_details
-- [ ] implement youtube embedding w. links-parse and replace descriptions with youtube embed https://www.npmjs.com/package/react-youtube?
+- [x] Show Details on places search
+- [x] implement youtube embedding w. links-parse and replace descriptions with youtube embed
+- [ ] tabs and about page

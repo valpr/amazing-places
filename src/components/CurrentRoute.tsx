@@ -14,6 +14,7 @@ import { useTypedSelector } from '../hooks/useTypedSelector';
 import { Categories, CustomMarker } from '../state';
 import { useActions } from '../hooks/useActions';
 import { editMarker } from '../state/action-creators';
+import YoutubeEmbed from './YoutubeEmbed';
 
 const CurrentRoute: React.FC = () => {
     const { route, googleObjects } = useTypedSelector(
@@ -95,6 +96,7 @@ const CurrentRoute: React.FC = () => {
                         <Callout
                             title={`ID: ${marker.id} | ${marker.title}`}
                             intent={Intent.PRIMARY}>
+                            <YoutubeEmbed videoID={marker?.youtubeID || ''} />
                             {marker.description}
                         </Callout>
                         <div className="travelModes">
