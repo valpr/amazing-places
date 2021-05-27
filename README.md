@@ -27,4 +27,4 @@ and hopefully take the step towards visiting the places you want to.
 - [x] Place classification (food, entertainment, exercise, hotel, shopping, work-display with icons etc)
 - [x] Show Details on places search
 - [x] implement youtube embedding w. links-parse and replace descriptions with youtube embed
-- [ ] tabs and about page
+- [ ] put icons into dropdowns, tabs and about page, clean up video CSS
