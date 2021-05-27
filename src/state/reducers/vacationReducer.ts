@@ -141,6 +141,22 @@ const reducer = (
                         : marker,
                 ),
             };
+        case ActionType.GET_PLACE_DETAILS:
+            return {
+                ...state,
+                route: state.route.map((marker) =>
+                    marker.id === action.payload?.id
+                        ? {
+                              ...marker,
+                              photoreference: action.payload?.photoreference,
+                              placeID: action.payload.place_id,
+                              description:
+                                  action.payload?.description ||
+                                  marker.description,
+                          }
+                        : marker,
+                ),
+            };
         default:
             return state;
     }

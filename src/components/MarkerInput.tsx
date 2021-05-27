@@ -16,7 +16,8 @@ import GooglePlacesAutocomplete, {
 } from 'react-google-places-autocomplete';
 
 const MarkerInput: React.FC = () => {
-    const { createMarker, setCurrentMarker, editMarker } = useActions();
+    const { createMarker, setCurrentMarker, editMarker, searchPlace } =
+        useActions();
     const { currentMarker, latestID } = useTypedSelector(
         (state) => state.vacations,
     );
@@ -75,6 +76,10 @@ const MarkerInput: React.FC = () => {
                         lng,
                     },
                 });
+
+                searchPlace(e.value.place_id);
+                //search places API --place Details then search Photos
+                //Populate currentMarker with photo and description
             });
     };
 

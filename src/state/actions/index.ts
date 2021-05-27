@@ -12,6 +12,7 @@ export interface CustomMarker {
     travelMode?: google.maps.TravelMode;
     directionsRenderer?: google.maps.DirectionsRenderer;
     category?: Categories;
+    photoreference?: string;
 }
 
 export enum Categories {
@@ -74,6 +75,17 @@ interface ChangeCategory {
         category: Categories;
     };
 }
+
+interface GetPlaceDetails {
+    type: ActionType.GET_PLACE_DETAILS;
+    payload: {
+        id: number;
+        place_id: string;
+        photoreference?: string;
+        description: string;
+    };
+}
+
 export type Action =
     | ModifyMarkerAction
     | DeleteMarkerAction
@@ -82,4 +94,5 @@ export type Action =
     | ClearRoute
     | ChangeTravelMode
     | LoadGoogle
-    | ChangeCategory;
+    | ChangeCategory
+    | GetPlaceDetails;

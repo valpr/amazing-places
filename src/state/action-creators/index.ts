@@ -1,6 +1,12 @@
 import { ActionType } from '../action-types';
 import { Action, Categories, CustomMarker } from '../actions';
 import { Dispatch } from 'redux';
+import {
+    getGooglePlaceDetails,
+    getGooglePlacePhotos,
+} from '../../services/googleService';
+
+const RICH = false; //places photos are expensive calls...
 
 export const createMarker = (marker: CustomMarker) => {
     return async (dispatch: Dispatch<Action>): Promise<void> => {
@@ -86,6 +92,53 @@ export const changeCategory = (id: number, category: Categories) => {
             payload: {
                 id,
                 category,
+            },
+        });
+    };
+};
+
+export const searchPlace = (place_id: string) => {
+    return async (dispatch: Dispatch<Action>): Promise<void> => {
+        const details = await getGooglePlaceDetails(place_id);
+        const newDescription = `${details.website}
+        ${details.formatted_phone_number}
+        ${details.business_status}`;
+
+        dispatch({
+            type: ActionType.SET_CURRENT_MARKER,
+            payload: {
+                place_id,
+                description: `${newDescription}` || '',
+                photoreference: details.photos
+                    ? details.photos[0].photo_reference
+                    : '',
+            },
+        });
+    };
+};
+
+export const getPlaceDetails = (id: number, place_id: string) => {
+    return async (dispatch: Dispatch<Action>): Promise<void> => {
+        const details = await getGooglePlaceDetails(place_id);
+        if (details?.photos && RICH) {
+            const photo = await getGooglePlacePhotos(
+                details.photos[0].photo_reference,
+            );
+        }
+
+        const newDescription = `${details.website}
+        ${details.formatted_phone_number}
+        ${details.business_status}`;
+
+        dispatch({
+            type: ActionType.GET_PLACE_DETAILS,
+            payload: {
+                id,
+                place_id,
+                description: `${newDescription}` || '',
+                photoreference: details.photos
+                    ? details.photos[0].photo_reference
+                    : '',
             },
         });
     };
