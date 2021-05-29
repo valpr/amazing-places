@@ -3,11 +3,13 @@ import {
     Card,
     Button,
     Intent,
-    Icon,
-    IconSize,
     ButtonGroup,
     Divider,
+    Position,
+    Menu,
+    MenuItem,
 } from '@blueprintjs/core';
+import { Popover2 } from '@blueprintjs/popover2';
 import { IconNames } from '@blueprintjs/icons';
 import React from 'react';
 import { useTypedSelector } from '../hooks/useTypedSelector';
@@ -88,6 +90,124 @@ const CurrentRoute: React.FC = () => {
         return;
     };
 
+    const renderTravelModeIcons = (marker: CustomMarker) => {
+        return (
+            <Menu>
+                <MenuItem
+                    text="Walking"
+                    icon={IconNames.WALK}
+                    intent={
+                        marker.travelMode === travelMode.WALKING
+                            ? Intent.SUCCESS
+                            : Intent.NONE
+                    }
+                    onClick={() =>
+                        onClickTravelMode(marker.id, travelMode.WALKING)
+                    }
+                />
+                <MenuItem
+                    text="Cycling"
+                    icon={IconNames.CYCLE}
+                    intent={
+                        marker.travelMode === travelMode.TWO_WHEELER
+                            ? Intent.SUCCESS
+                            : Intent.NONE
+                    }
+                    onClick={() =>
+                        onClickTravelMode(marker.id, travelMode.TWO_WHEELER)
+                    }
+                />
+                <MenuItem
+                    text="Driving"
+                    icon={IconNames.TAXI}
+                    intent={
+                        marker.travelMode === travelMode.DRIVING
+                            ? Intent.SUCCESS
+                            : Intent.NONE
+                    }
+                    onClick={() =>
+                        onClickTravelMode(marker.id, travelMode.DRIVING)
+                    }
+                />
+                <MenuItem
+                    text="Transit"
+                    icon={IconNames.TRAIN}
+                    intent={
+                        marker.travelMode === travelMode.TRANSIT
+                            ? Intent.SUCCESS
+                            : Intent.NONE
+                    }
+                    onClick={() =>
+                        onClickTravelMode(marker.id, travelMode.TRANSIT)
+                    }
+                />
+            </Menu>
+        );
+    };
+
+    const renderPlaceClassification = (marker: CustomMarker) => {
+        return (
+            <Menu>
+                <MenuItem
+                    text="Work"
+                    icon={IconNames.OFFICE}
+                    intent={
+                        marker?.category === Categories.WORK
+                            ? Intent.PRIMARY
+                            : Intent.NONE
+                    }
+                    onClick={() => onClickCategory(marker.id, Categories.WORK)}
+                />
+                <MenuItem
+                    text="Restaurants"
+                    icon={IconNames.GLASS}
+                    intent={
+                        marker?.category === Categories.RESTAURANT
+                            ? Intent.PRIMARY
+                            : Intent.NONE
+                    }
+                    onClick={() =>
+                        onClickCategory(marker.id, Categories.RESTAURANT)
+                    }
+                />
+                <MenuItem
+                    text="Activity"
+                    icon={IconNames.MOUNTAIN}
+                    intent={
+                        marker?.category === Categories.ACTIVITY
+                            ? Intent.PRIMARY
+                            : Intent.NONE
+                    }
+                    onClick={() =>
+                        onClickCategory(marker.id, Categories.ACTIVITY)
+                    }
+                />
+                <MenuItem
+                    text="Sleep"
+                    icon={IconNames.MOON}
+                    intent={
+                        marker?.category === Categories.SLEEP
+                            ? Intent.PRIMARY
+                            : Intent.NONE
+                    }
+                    onClick={() => onClickCategory(marker.id, Categories.SLEEP)}
+                />
+                <MenuItem
+                    text="Shopping"
+                    icon={IconNames.SHOPPING_CART}
+                    intent={
+                        marker?.category === Categories.SHOPPING
+                            ? Intent.PRIMARY
+                            : Intent.NONE
+                    }
+                    onClick={() =>
+                        onClickCategory(marker.id, Categories.SHOPPING)
+                    }
+                />
+            </Menu>
+        );
+    };
+
     return (
         <div className="RouteList">
             {route.map((marker) => {
@@ -99,137 +219,56 @@ const CurrentRoute: React.FC = () => {
                             <YoutubeEmbed videoID={marker?.youtubeID || ''} />
                             {marker.description}
                         </Callout>
-                        <div className="travelModes">
-                            <Icon
-                                iconSize={IconSize.LARGE}
-                                icon={IconNames.WALK}
-                                intent={
-                                    marker.travelMode === travelMode.WALKING
-                                        ? Intent.SUCCESS
-                                        : Intent.NONE
+                        <Popover2
+                            content={renderTravelModeIcons(marker)}
+                            position={Position.LEFT}>
+                            <Button
+                                icon={
+                                    marker?.travelMode === travelMode.TRANSIT
+                                        ? IconNames.TRAIN
+                                        : marker?.travelMode ===
+                                          travelMode.DRIVING
+                                        ? IconNames.TAXI
+                                        : marker?.travelMode ===
+                                          travelMode.TWO_WHEELER
+                                        ? IconNames.CYCLE
+                                        : marker?.travelMode ===
+                                          travelMode.WALKING
+                                        ? IconNames.WALK
+                                        : IconNames.SHARE
                                 }
-                                onClick={() =>
-                                    onClickTravelMode(
-                                        marker.id,
-                                        travelMode.WALKING,
-                                    )
-                                }></Icon>
-                            <Icon
-                                iconSize={IconSize.LARGE}
-                                icon={IconNames.CYCLE}
-                                intent={
-                                    marker.travelMode === travelMode.TWO_WHEELER
-                                        ? Intent.SUCCESS
-                                        : Intent.NONE
-                                }
-                                onClick={() =>
-                                    onClickTravelMode(
-                                        marker.id,
-                                        travelMode.TWO_WHEELER,
-                                    )
-                                }></Icon>
-                            <Icon
-                                iconSize={IconSize.LARGE}
-                                icon={IconNames.TAXI}
-                                intent={
-                                    marker.travelMode === travelMode.DRIVING
-                                        ? Intent.SUCCESS
-                                        : Intent.NONE
-                                }
-                                onClick={() =>
-                                    onClickTravelMode(
-                                        marker.id,
-                                        travelMode.DRIVING,
-                                    )
-                                }></Icon>
-                            <Icon
-                                iconSize={IconSize.LARGE}
-                                icon={IconNames.TRAIN}
-                                intent={
-                                    marker.travelMode === travelMode.TRANSIT
-                                        ? Intent.SUCCESS
-                                        : Intent.NONE
-                                }
-                                onClick={() =>
-                                    onClickTravelMode(
-                                        marker.id,
-                                        travelMode.TRANSIT,
-                                    )
-                                }></Icon>
-                        </div>
-                        <Divider />
-                        <div className="categories">
-                            <Icon
-                                iconSize={IconSize.LARGE}
-                                icon={IconNames.OFFICE}
-                                intent={
-                                    marker?.category === Categories.WORK
-                                        ? Intent.PRIMARY
-                                        : Intent.NONE
-                                }
-                                onClick={() =>
-                                    onClickCategory(marker.id, Categories.WORK)
-                                }></Icon>
-                            <Icon
-                                iconSize={IconSize.LARGE}
-                                icon={IconNames.GLASS}
-                                intent={
+                                text="Travel next by..."
+                            />
+                        </Popover2>
+                        <Popover2
+                            content={renderPlaceClassification(marker)}
+                            position={Position.LEFT}>
+                            <Button
+                                icon={
                                     marker?.category === Categories.RESTAURANT
-                                        ? Intent.PRIMARY
-                                        : Intent.NONE
+                                        ? IconNames.GLASS
+                                        : marker?.category ===
+                                          Categories.ACTIVITY
+                                        ? IconNames.MOUNTAIN
+                                        : marker?.category ===
+                                          Categories.SHOPPING
+                                        ? IconNames.SHOPPING_CART
+                                        : marker?.category === Categories.SLEEP
+                                        ? IconNames.MOON
+                                        : marker?.category === Categories.WORK
+                                        ? IconNames.OFFICE
+                                        : IconNames.PATH
                                 }
-                                onClick={() =>
-                                    onClickCategory(
-                                        marker.id,
-                                        Categories.RESTAURANT,
-                                    )
-                                }></Icon>
-                            <Icon
-                                iconSize={IconSize.LARGE}
-                                icon={IconNames.MOUNTAIN}
-                                intent={
-                                    marker?.category === Categories.ACTIVITY
-                                        ? Intent.PRIMARY
-                                        : Intent.NONE
-                                }
-                                onClick={() =>
-                                    onClickCategory(
-                                        marker.id,
-                                        Categories.ACTIVITY,
-                                    )
-                                }></Icon>
-                            <Icon
-                                iconSize={IconSize.LARGE}
-                                icon={IconNames.MOON}
-                                intent={
-                                    marker?.category === Categories.SLEEP
-                                        ? Intent.PRIMARY
-                                        : Intent.NONE
-                                }
-                                onClick={() =>
-                                    onClickCategory(marker.id, Categories.SLEEP)
-                                }></Icon>
-                            <Icon
-                                iconSize={IconSize.LARGE}
-                                icon={IconNames.SHOPPING_CART}
-                                intent={
-                                    marker?.category === Categories.SHOPPING
-                                        ? Intent.PRIMARY
-                                        : Intent.NONE
-                                }
-                                onClick={() =>
-                                    onClickCategory(
-                                        marker.id,
-                                        Categories.SHOPPING,
-                                    )
-                                }></Icon>
-                        </div>
-                        <ButtonGroup fill large>
+                                text="Type of place"
+                            />
+                        </Popover2>
+                        <Divider />
+                        <ButtonGroup fill>
                             <Button onClick={() => onClick(marker)}>
-                                See location
+                                View Map
                             </Button>
                             <Button onClick={() => onClickDelete(marker)}>
-                                Delete this location
+                                Delete
                             </Button>
                         </ButtonGroup>
                     </Card>

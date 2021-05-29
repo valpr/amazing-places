@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useActions } from '../hooks/useActions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import {
@@ -9,6 +9,7 @@ import {
     Button,
     FormGroup,
     NumericInput,
+    Collapse,
 } from '@blueprintjs/core';
 import GooglePlacesAutocomplete, {
     geocodeByAddress,
@@ -20,6 +21,7 @@ const MarkerInput: React.FC = () => {
     const { currentMarker, latestID, googleObjects } = useTypedSelector(
         (state) => state.vacations,
     );
+    const [open, setOpen] = useState<boolean>(true);
 
     const onClick = () => {
         if (
@@ -174,89 +176,94 @@ const MarkerInput: React.FC = () => {
     };
 
     return (
-        <Card interactive elevation={2} className="MarkerInput">
-            <InputGroup
-                placeholder="Title"
-                large
-                value={currentMarker?.title || ''}
-                onChange={(e) => setTitle(e)}
-            />
-            <InputGroup
-                placeholder="Youtube URL"
-                large
-                value={currentMarker?.youtubeID || ''}
-                onChange={(e) => setVideoID(e)}
-            />
-            <TextArea
-                className="desc"
-                placeholder="Enter a description.."
-                growVertically
-                large
-                fill
-                intent={Intent.PRIMARY}
-                value={currentMarker?.description || ''}
-                onChange={(e) => setDescription(e)}
-            />
-            <FormGroup label="Address" labelFor="Address">
-                <InputGroup
-                    placeholder="Address"
-                    large
-                    value={currentMarker?.address || ''}
-                    onChange={(e) => setAddress(e)}
-                />
-            </FormGroup>
-            <FormGroup label="Search Address" labelFor="SearchAddress">
-                <GooglePlacesAutocomplete
-                    selectProps={{
-                        id: 'SearchAddress',
-                        onChange: searchAddress,
-                    }}
-                    minLengthAutocomplete={3}
-                    debounce={500}
-                />
-            </FormGroup>
+        <React.Fragment>
+            <Button onClick={() => setOpen(!open)}>Close Marker Input</Button>
+            <Collapse isOpen={open}>
+                <Card interactive elevation={2} className="MarkerInput">
+                    <InputGroup
+                        placeholder="Title"
+                        large
+                        value={currentMarker?.title || ''}
+                        onChange={(e) => setTitle(e)}
+                    />
+                    <InputGroup
+                        placeholder="Youtube URL"
+                        large
+                        value={currentMarker?.youtubeID || ''}
+                        onChange={(e) => setVideoID(e)}
+                    />
+                    <TextArea
+                        className="desc"
+                        placeholder="Enter a description.."
+                        growVertically
+                        large
+                        fill
+                        intent={Intent.PRIMARY}
+                        value={currentMarker?.description || ''}
+                        onChange={(e) => setDescription(e)}
+                    />
+                    <FormGroup label="Address" labelFor="Address">
+                        <InputGroup
+                            placeholder="Address"
+                            large
+                            value={currentMarker?.address || ''}
+                            onChange={(e) => setAddress(e)}
+                        />
+                    </FormGroup>
+                    <FormGroup label="Search Address" labelFor="SearchAddress">
+                        <GooglePlacesAutocomplete
+                            selectProps={{
+                                id: 'SearchAddress',
+                                onChange: searchAddress,
+                            }}
+                            minLengthAutocomplete={3}
+                            debounce={500}
+                        />
+                    </FormGroup>
 
-            <FormGroup label="Latitude" labelFor="latitude">
-                <NumericInput
-                    id="latitude"
-                    className="lat"
-                    placeholder="Latitude"
-                    type="number"
-                    onValueChange={(num, stringVal) =>
-                        setPosition(num, stringVal, 'lat')
-                    }
-                    buttonPosition="none"
-                    value={currentMarker?.position?.lat || 0}
-                    disabled={true}
-                    minorStepSize={0.00000000000000001}
-                    majorStepSize={5}
-                    min={-90}
-                    max={90}
-                />
-            </FormGroup>
-            <FormGroup label="Longitude" labelFor="longitude">
-                <NumericInput
-                    id="longitude"
-                    className="lng"
-                    placeholder="Longitude"
-                    type="number"
-                    onValueChange={(num, stringVal) =>
-                        setPosition(num, stringVal, 'lng')
-                    }
-                    buttonPosition="none"
-                    value={currentMarker?.position?.lng || 0}
-                    disabled={true}
-                    minorStepSize={0.00000000000000001}
-                    majorStepSize={5}
-                    min={-180}
-                    max={180}
-                />
-            </FormGroup>
+                    <FormGroup label="Latitude" labelFor="latitude">
+                        <NumericInput
+                            id="latitude"
+                            className="lat"
+                            placeholder="Latitude"
+                            type="number"
+                            onValueChange={(num, stringVal) =>
+                                setPosition(num, stringVal, 'lat')
+                            }
+                            buttonPosition="none"
+                            value={currentMarker?.position?.lat || 0}
+                            disabled={true}
+                            minorStepSize={0.00000000000000001}
+                            majorStepSize={5}
+                            min={-90}
+                            max={90}
+                        />
+                    </FormGroup>
+                    <FormGroup label="Longitude" labelFor="longitude">
+                        <NumericInput
+                            id="longitude"
+                            className="lng"
+                            placeholder="Longitude"
+                            type="number"
+                            onValueChange={(num, stringVal) =>
+                                setPosition(num, stringVal, 'lng')
+                            }
+                            buttonPosition="none"
+                            value={currentMarker?.position?.lng || 0}
+                            disabled={true}
+                            minorStepSize={0.00000000000000001}
+                            majorStepSize={5}
+                            min={-180}
+                            max={180}
+                        />
+                    </FormGroup>
 
-            <Button className="submitDestination" onClick={onClick}>
-                {currentMarker?.id ? 'Edit' : 'Submit'}
-            </Button>
-        </Card>
+                    <Button className="submitDestination" onClick={onClick}>
+                        {currentMarker?.id ? 'Edit' : 'Submit'}
+                    </Button>
+                </Card>
+            </Collapse>
+        </React.Fragment>
     );
 };
 

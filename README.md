@@ -27,4 +27,10 @@ and hopefully take the step towards visiting the places you want to.
 - [x] Place classification (food, entertainment, exercise, hotel, shopping, work-display with icons etc)
 - [x] Show Details on places search
 - [x] implement youtube embedding w. links-parse and replace descriptions with youtube embed
-- [ ] put icons into dropdowns, tabs and about page, clean up video CSS
+- [x] collapsible input
+- [x] put icons into dropdowns
+- [x] tabs and about page
+- [ ] clean up video CSS (pops out into dialog)
+- [x] fix up markerClick on map
+- [x] prettify initial state
+- [ ] screenshots/README

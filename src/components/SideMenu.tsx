@@ -22,7 +22,6 @@ const SideMenu: React.FC<IProps> = ({ show, toggleDrawer }: IProps) => {
             title="Find your place"
             enforceFocus={false}>
             <MarkerInput />
-            {/* make collapsible in the future */}
             <CurrentRoute />
         </Drawer>
     );

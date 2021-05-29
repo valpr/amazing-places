@@ -10,6 +10,7 @@ import { useTypedSelector } from '../hooks/useTypedSelector';
 import { useActions } from '../hooks/useActions';
 import SideMenu from './SideMenu';
 import { editMarker } from '../state/action-creators';
+import { CustomMarker } from '../state';
 
 interface propShape {
     google: GoogleAPI;
@@ -79,12 +80,7 @@ const MapContainer: React.FC<propShape> = ({
         setCurrentMarker(undefined);
     };
 
-    const loadHistoryMarker = (marker: {
-        id: number;
-        description: string;
-        title: string;
-        position: { lat: number; lng: number };
-    }) => {
+    const loadHistoryMarker = (marker: CustomMarker) => {
         setCurrentMarker(marker);
     };
 

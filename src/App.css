@@ -11,10 +11,22 @@
     width:360px;
 }
 
-.travelModes .bp3-icon {
-    padding-right: 30px;
+.bp3-popover2 .bp3-popover2-arrow {
+    display: none;
 }
 
-.categories .bp3-icon {
-    padding-right: 30px;
+body {
+    background-color: lightblue;
 }
+
+.about {
+    width: 50%;
+    margin: auto;
+    margin-top:5%;
+    text-align: center;
+}
+
+.functionalityList {
+    text-align: left;
+}
+
