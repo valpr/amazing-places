@@ -28,7 +28,7 @@ const Topbar: React.FC<IProps> = (props: IProps) => {
                 <Button
                     onClick={props.toggleDrawer}
                     icon="expand-all"
-                    text="Expand Drawer (ALT+Z)"
+                    text="Expand Drawer"
                 />
             </Navbar.Group>
         </Navbar>

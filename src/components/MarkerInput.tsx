@@ -177,7 +177,11 @@ const MarkerInput: React.FC = () => {
 
     return (
         <React.Fragment>
-            <Button onClick={() => setOpen(!open)}>Close Marker Input</Button>
+            <Button
+                rightIcon={open ? 'cross' : 'tick'}
+                onClick={() => setOpen(!open)}>
+                {open ? 'Close View' : 'Open View'}
+            </Button>
             <Collapse isOpen={open}>
                 <Card interactive elevation={2} className="MarkerInput">
                     <InputGroup
