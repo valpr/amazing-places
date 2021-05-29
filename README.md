@@ -1,36 +1,29 @@
 # Amazing Places
 
 A project inspired by Tom Scott's "Amazing Places" series.
-This app is a sort of 'vacation-planning' app, allowing you to plan your destinations, see the route between them,
+This app is a 'vacation-planning' app, allowing you to plan your destinations, see the route between them,
 and hopefully take the step towards visiting the places you want to.
 
-# TODO:
-- [x] Figure out the basics of google-maps-react
-- [x] Fix Typing confusion
-- [x] Click event to place markers
-- [x] actual tsconfig and lint rules
-- [x] Set up a proper redux state for markers/diagram it out
-- [x] Hook up inputs to create marker action
-- [x] Blueprint components
-- [x] Drawer
-- [x] Top Bar
-- [x] Expected UI functionality: clicking on markers populates menu with items
-- [x] add a list of marker functionality
-- [x] Display currently saved markers as a route
-- [x] Scroll to function on map
-- [x] Delete marker function/Edit existing marker function
-- [x] Places Search API-use to scroll to and place marker on map
-- [x] clear current route button
-- [x] Add a route rendering component between all markers https://developers.google.com/maps/documentation/javascript/directions
-- [x] Demo a route made from Tom Scott's 'Amazing Places'
-## Fluff
-- [x] Place classification (food, entertainment, exercise, hotel, shopping, work-display with icons etc)
-- [x] Show Details on places search
-- [x] implement youtube embedding w. links-parse and replace descriptions with youtube embed
-- [x] collapsible input
-- [x] put icons into dropdowns
-- [x] tabs and about page
-- [ ] clean up video CSS (pops out into dialog)
-- [x] fix up markerClick on map
-- [x] prettify initial state
-- [ ] screenshots/README
+Built with React, Redux, Typescript, Google Maps APIs, and Blueprint
+
+## Home
+![image](https://user-images.githubusercontent.com/61486010/120080275-14ad8980-c086-11eb-8949-3931cb316eca.png)
+## Place search, and auto-fill location details with Google Place IDs
+![image](https://user-images.githubusercontent.com/61486010/120081100-bb475980-c089-11eb-8264-5edea8b3bfd0.png)
+## Changing travel modes or categories
+![image](https://user-images.githubusercontent.com/61486010/120080531-6276c180-c087-11eb-9c04-0e70149e55ad.png)
+## About
+![image](https://user-images.githubusercontent.com/61486010/120080898-ce0d5e80-c088-11eb-9c32-3bd4acfee449.png)
+
+# To Run:
+1.    Get a google API key from Google Developer's Console
+2.    Enable Directions, Geocoding, Places, Maps JavaScript API
+3.    Clone repository
+    ```
+    git clone https://github.com/valpr/amazing-places.git
+    ```
+4.    create .env file with API key
+    ```
+    REACT_APP_API_KEY={apiKey}
+    ```
+5.    `yarn start`
